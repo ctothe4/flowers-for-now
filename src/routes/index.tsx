@@ -1,13 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X, ArrowRight, Check, Lock, Mail, Calendar, Download, Share2, Sparkles } from "lucide-react";
+import { Menu, X, ArrowRight, Check, Lock, Mail, Sparkles } from "lucide-react";
 import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
 } from "@/components/ui/accordion";
 import { StartBouquetDialog } from "@/components/site/StartBouquetDialog";
 import { InstitutionalDialog } from "@/components/site/InstitutionalDialog";
 import { BouquetMockup } from "@/components/site/BouquetMockup";
-import heroImg from "@/assets/hero-bouquet.jpg";
 import gatheringImg from "@/assets/gathering.jpg";
 
 export const Route = createFileRoute("/")({
