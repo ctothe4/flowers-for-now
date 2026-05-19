@@ -7,7 +7,7 @@ import {
 import { StartBouquetDialog } from "@/components/site/StartBouquetDialog";
 import { InstitutionalDialog } from "@/components/site/InstitutionalDialog";
 import { BouquetMockup } from "@/components/site/BouquetMockup";
-import gatheringImg from "@/assets/gathering.jpg";
+import gatheringImg from "@/assets/gathering.png";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
