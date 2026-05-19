@@ -9,8 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as StartVideoFlowerRouteImport } from './routes/start-video-flower'
 import { Route as IndexRouteImport } from './routes/index'
 
+const StartVideoFlowerRoute = StartVideoFlowerRouteImport.update({
+  id: '/start-video-flower',
+  path: '/start-video-flower',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +25,39 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/start-video-flower': typeof StartVideoFlowerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/start-video-flower': typeof StartVideoFlowerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/start-video-flower': typeof StartVideoFlowerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/start-video-flower'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/start-video-flower'
+  id: '__root__' | '/' | '/start-video-flower'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  StartVideoFlowerRoute: typeof StartVideoFlowerRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/start-video-flower': {
+      id: '/start-video-flower'
+      path: '/start-video-flower'
+      fullPath: '/start-video-flower'
+      preLoaderRoute: typeof StartVideoFlowerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +70,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  StartVideoFlowerRoute: StartVideoFlowerRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

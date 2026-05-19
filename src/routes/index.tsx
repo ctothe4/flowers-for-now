@@ -321,6 +321,21 @@ function Occasions() {
 /* ---------------- PACKAGES ---------------- */
 const PACKAGES = [
   {
+    name: "Video Flower",
+    price: "$9.99",
+    blurb: "One heartfelt video message, beautifully packaged and delivered as a private keepsake.",
+    features: [
+      "1 private video message",
+      "Simple branded opening and closing cards",
+      "Private delivery link",
+      "Downloadable MP4 keepsake",
+      "Delivered digitally",
+    ],
+    cta: "Send a Video Flower",
+    popular: false,
+    key: "Video Flower" as const,
+  },
+  {
     name: "Mini Bouquet",
     price: "$49",
     blurb: "For intimate messages from a small circle.",
@@ -361,7 +376,11 @@ function Packages() {
           </h2>
         </div>
 
-        <div className="mt-16 grid md:grid-cols-3 gap-6 items-stretch">
+        <p className="mt-6 text-center text-sm text-muted-foreground max-w-2xl mx-auto">
+          A bouquet is made of flowers. A video bouquet is made of video flowers.
+        </p>
+
+        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {PACKAGES.map((p) => (
             <div key={p.name}
               className={`soft-card p-8 lg:p-9 flex flex-col relative ${p.popular ? "lg:-translate-y-3" : ""}`}
@@ -397,19 +416,25 @@ function Packages() {
               </ul>
 
               <div className="mt-8">
-                <StartBouquetDialog
-                  defaultPackage={p.key}
-                  trigger={
-                    <button
-                      className={p.popular
-                        ? "btn-primary w-full"
-                        : "btn-ghost w-full"}
-                      style={p.popular ? { background: "var(--ivory)", color: "var(--ink)" } : undefined}
-                    >
-                      {p.cta}
-                    </button>
-                  }
-                />
+                {p.key === "Video Flower" ? (
+                  <a href="/start-video-flower" className="btn-ghost w-full inline-flex">
+                    {p.cta}
+                  </a>
+                ) : (
+                  <StartBouquetDialog
+                    defaultPackage={p.key}
+                    trigger={
+                      <button
+                        className={p.popular
+                          ? "btn-primary w-full"
+                          : "btn-ghost w-full"}
+                        style={p.popular ? { background: "var(--ivory)", color: "var(--ink)" } : undefined}
+                      >
+                        {p.cta}
+                      </button>
+                    }
+                  />
+                )}
               </div>
             </div>
           ))}

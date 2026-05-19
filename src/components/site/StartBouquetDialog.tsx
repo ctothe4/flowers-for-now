@@ -12,7 +12,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 type Props = {
   trigger: React.ReactNode;
-  defaultPackage?: "Mini Bouquet" | "Classic Bouquet" | "Legacy Bouquet";
+  defaultPackage?: "Video Flower" | "Mini Bouquet" | "Classic Bouquet" | "Legacy Bouquet";
 };
 
 export function StartBouquetDialog({ trigger, defaultPackage = "Classic Bouquet" }: Props) {
@@ -101,6 +101,7 @@ export function StartBouquetDialog({ trigger, defaultPackage = "Classic Bouquet"
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="Video Flower">Video Flower — $9.99</SelectItem>
                       <SelectItem value="Mini Bouquet">Mini Bouquet — $49</SelectItem>
                       <SelectItem value="Classic Bouquet">Classic Bouquet — $149</SelectItem>
                       <SelectItem value="Legacy Bouquet">Legacy Bouquet — $299</SelectItem>
