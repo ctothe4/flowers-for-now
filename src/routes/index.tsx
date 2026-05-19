@@ -321,6 +321,21 @@ function Occasions() {
 /* ---------------- PACKAGES ---------------- */
 const PACKAGES = [
   {
+    name: "Video Flower",
+    price: "$9.99",
+    blurb: "One heartfelt video message, beautifully packaged and delivered as a private keepsake.",
+    features: [
+      "1 private video message",
+      "Simple branded opening and closing cards",
+      "Private delivery link",
+      "Downloadable MP4 keepsake",
+      "Delivered digitally",
+    ],
+    cta: "Send a Video Flower",
+    popular: false,
+    key: "Video Flower" as const,
+  },
+  {
     name: "Mini Bouquet",
     price: "$49",
     blurb: "For intimate messages from a small circle.",
