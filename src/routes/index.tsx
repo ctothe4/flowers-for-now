@@ -8,6 +8,7 @@ import { StartBouquetDialog } from "@/components/site/StartBouquetDialog";
 import { InstitutionalDialog } from "@/components/site/InstitutionalDialog";
 import { BouquetMockup } from "@/components/site/BouquetMockup";
 import gatheringImg from "@/assets/gathering.png";
+import monogram from "@/assets/ryf-monogram.png";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -50,8 +51,10 @@ function Nav() {
       style={{ background: "color-mix(in oklab, var(--ivory) 82%, transparent)",
                borderBottom: "1px solid color-mix(in oklab, var(--ink) 8%, transparent)" }}>
       <div className="container-narrow flex items-center justify-between h-16">
-        <a href="#top" className="font-display text-lg sm:text-xl tracking-tight text-foreground">
-          Receive Your Flowers
+        <a href="#top" className="flex items-center gap-2.5 font-display text-lg sm:text-xl tracking-tight text-foreground">
+          <img src={monogram} alt="RYF monogram" width={36} height={36}
+            className="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-cover" />
+          <span>Receive Your Flowers</span>
         </a>
         <nav className="hidden lg:flex items-center gap-8">
           {NAV.map((n) => (
@@ -90,7 +93,11 @@ function Hero() {
     <section id="top" className="relative grain-bg overflow-hidden">
       <div className="container-narrow pt-16 sm:pt-24 lg:pt-28 pb-20 lg:pb-28 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         <div className="lg:col-span-6 reveal">
-          <p className="label-eyebrow">A living tribute platform</p>
+          <div className="flex items-center gap-3">
+            <img src={monogram} alt="" aria-hidden="true" width={28} height={28}
+              className="w-7 h-7 rounded-md object-cover opacity-90" />
+            <p className="label-eyebrow">A living tribute platform</p>
+          </div>
           <h1 className="font-display text-[2.6rem] sm:text-6xl lg:text-[4.4rem] leading-[1.02] mt-5 text-foreground">
             Give them their<br />
             <span className="italic" style={{ color: "var(--rose)" }}>flowers</span> while<br />they're here.
@@ -682,7 +689,11 @@ function Footer() {
     <footer className="border-t border-border bg-background">
       <div className="container-narrow py-16 grid md:grid-cols-12 gap-10">
         <div className="md:col-span-5">
-          <p className="font-display text-2xl text-foreground">Receive Your Flowers</p>
+          <div className="flex items-center gap-3">
+            <img src={monogram} alt="RYF monogram" width={40} height={40}
+              className="w-10 h-10 rounded-md object-cover" />
+            <p className="font-display text-2xl text-foreground">Receive Your Flowers</p>
+          </div>
           <p className="mt-3 text-muted-foreground italic max-w-sm">
             Give them their flowers while they're here.
           </p>
