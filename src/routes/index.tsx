@@ -714,7 +714,8 @@ function Footer() {
                     : l === "Occasions" ? "#occasions"
                     : l === "Packages" ? "#packages"
                     : l === "For Teams" ? "#teams"
-                    : l === "FAQ" ? "#faq" : "#"}
+                    : l === "FAQ" ? "#faq" 
+                    : l === "Instagram" ? "https://instagram.com/receiveyourflowers" : "#"}
                     className="text-foreground/80 hover:text-foreground transition text-sm">
                     {l}
                   </a>
