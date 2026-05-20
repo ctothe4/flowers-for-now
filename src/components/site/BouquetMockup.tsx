@@ -1,5 +1,6 @@
 import { Play, Download, Share2, Heart } from "lucide-react";
 import handsImg from "@/assets/hands-flowers.jpg";
+import monogram from "@/assets/ryf-monogram.png";
 
 export function BouquetMockup() {
   return (
@@ -23,8 +24,14 @@ export function BouquetMockup() {
         </div>
 
         <div className="p-6 sm:p-8">
-          <p className="label-eyebrow">A Video Bouquet</p>
-          <h3 className="font-display text-3xl sm:text-4xl mt-2 text-foreground">For Maya</h3>
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="label-eyebrow">A Video Bouquet</p>
+              <h3 className="font-display text-3xl sm:text-4xl mt-2 text-foreground">For Maya</h3>
+            </div>
+            <img src={monogram} alt="" aria-hidden="true" width={28} height={28}
+              className="w-7 h-7 rounded-md object-cover opacity-80 shrink-0" />
+          </div>
           <p className="text-muted-foreground mt-1.5 text-sm">You've received your flowers.</p>
 
           {/* Main video */}
