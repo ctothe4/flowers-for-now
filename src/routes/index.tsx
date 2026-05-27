@@ -18,9 +18,10 @@ const NAV = [
   { label: "How It Works", href: "#how" },
   { label: "Occasions", href: "#occasions" },
   { label: "Packages", href: "#packages" },
-  { label: "For Teams", href: "#teams" },
+  { label: "Enterprise", href: "/enterprise" },
   { label: "FAQ", href: "#faq" },
 ];
+
 
 function HomePage() {
   return (
