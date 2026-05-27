@@ -681,7 +681,56 @@ function FinalCTA() {
   );
 }
 
-/* ---------------- FOOTER ---------------- */
+/* ---------------- ENTERPRISE TEASER ---------------- */
+function EnterpriseTeaser() {
+  return (
+    <section className="relative overflow-hidden" style={{ background: "#0E0B0A", color: "var(--ivory)" }}>
+      <div className="absolute inset-0 opacity-25 pointer-events-none">
+        <div className="absolute top-1/3 -left-32 w-[520px] h-[520px] rounded-full blur-3xl"
+          style={{ background: "color-mix(in oklab, var(--rose) 50%, transparent)" }} />
+        <div className="absolute -bottom-40 right-0 w-[600px] h-[600px] rounded-full blur-3xl"
+          style={{ background: "color-mix(in oklab, var(--champagne) 35%, transparent)" }} />
+      </div>
+      <div className="container-narrow relative py-28 lg:py-40">
+        <div className="max-w-3xl reveal">
+          <p className="label-eyebrow" style={{ color: "color-mix(in oklab, var(--ivory) 65%, transparent)" }}>
+            Enterprise
+          </p>
+          <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl mt-5 leading-[1.02]"
+            style={{ color: "var(--ivory)" }}>
+            A new kind of <span className="italic" style={{ color: "var(--blush)" }}>human connection.</span>
+          </h2>
+        </div>
+
+        <div className="mt-14 grid lg:grid-cols-12 gap-10 lg:gap-16">
+          <div className="lg:col-span-7 space-y-6 text-lg leading-relaxed"
+            style={{ color: "color-mix(in oklab, var(--ivory) 82%, transparent)" }}>
+            <p>Receive Your Flowers began with a simple idea: give people their flowers while they're still here to receive them.</p>
+            <p>But over time, we realized something bigger. The world doesn't just need better gifting. It needs better appreciation. Better recognition. Better human connection.</p>
+            <p>Today, Receive Your Flowers works with individuals, teams, and organizations to create meaningful moments that feel personal, emotional, and real.</p>
+            <p>From appreciation experiences to recognition systems to human-centered feedback experiences, we're exploring new ways to help people feel seen, heard, and valued.</p>
+          </div>
+          <div className="lg:col-span-5 flex lg:justify-end lg:items-end">
+            <div>
+              <p className="font-display italic text-2xl lg:text-3xl leading-snug"
+                style={{ color: "color-mix(in oklab, var(--ivory) 90%, transparent)" }}>
+                Because some flowers are more than flowers.
+              </p>
+              <div className="mt-10">
+                <a href="/enterprise" className="btn-primary"
+                  style={{ background: "var(--ivory)", color: "var(--ink)" }}>
+                  Explore Enterprise <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
 function Footer() {
   const cols = [
     { h: "Product", links: ["How It Works", "Occasions", "Packages", "For Teams", "FAQ"] },
