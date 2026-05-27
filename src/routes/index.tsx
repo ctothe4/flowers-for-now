@@ -39,10 +39,12 @@ function HomePage() {
       <Privacy />
       <FAQ />
       <FinalCTA />
+      <EnterpriseTeaser />
       <Footer />
     </main>
   );
 }
+
 
 /* ---------------- NAV ---------------- */
 function Nav() {
