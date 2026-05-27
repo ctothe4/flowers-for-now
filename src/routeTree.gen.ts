@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as StartVideoFlowerRouteImport } from './routes/start-video-flower'
+import { Route as EnterpriseRouteImport } from './routes/enterprise'
 import { Route as IndexRouteImport } from './routes/index'
 
 const StartVideoFlowerRoute = StartVideoFlowerRouteImport.update({
   id: '/start-video-flower',
   path: '/start-video-flower',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnterpriseRoute = EnterpriseRouteImport.update({
+  id: '/enterprise',
+  path: '/enterprise',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -25,27 +31,31 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/enterprise': typeof EnterpriseRoute
   '/start-video-flower': typeof StartVideoFlowerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/enterprise': typeof EnterpriseRoute
   '/start-video-flower': typeof StartVideoFlowerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/enterprise': typeof EnterpriseRoute
   '/start-video-flower': typeof StartVideoFlowerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/start-video-flower'
+  fullPaths: '/' | '/enterprise' | '/start-video-flower'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/start-video-flower'
-  id: '__root__' | '/' | '/start-video-flower'
+  to: '/' | '/enterprise' | '/start-video-flower'
+  id: '__root__' | '/' | '/enterprise' | '/start-video-flower'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  EnterpriseRoute: typeof EnterpriseRoute
   StartVideoFlowerRoute: typeof StartVideoFlowerRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/start-video-flower'
       fullPath: '/start-video-flower'
       preLoaderRoute: typeof StartVideoFlowerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/enterprise': {
+      id: '/enterprise'
+      path: '/enterprise'
+      fullPath: '/enterprise'
+      preLoaderRoute: typeof EnterpriseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EnterpriseRoute: EnterpriseRoute,
   StartVideoFlowerRoute: StartVideoFlowerRoute,
 }
 export const routeTree = rootRouteImport
