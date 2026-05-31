@@ -331,8 +331,10 @@ function EnterprisePage() {
       <Nav />
       <Hero />
       <Intro />
-      <BeyondSurveys />
+      <HowItWorks />
       <Offerings />
+      <FoundingPartner />
+      <Infrastructure />
       <CTA />
       <Footer />
     </main>
