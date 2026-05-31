@@ -472,7 +472,10 @@ function EnterprisePage() {
       <HowItWorks />
       <Offerings />
       <FoundingPartner />
+      <Included />
       <Infrastructure />
+      <Beyond />
+
       <CTA />
       <Footer />
     </main>
