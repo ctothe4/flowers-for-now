@@ -168,9 +168,34 @@ const OFFERINGS = [
 ];
 
 const PROGRAMS = [
-  { t: "Starter Recognition Program", count: "10 Recipients", d: "Ideal for leadership teams, pilot departments, and first-time implementation." },
-  { t: "Standard Recognition Program", count: "25 Recipients", d: "Designed for organizations seeking meaningful recognition across teams, clients, or stakeholders." },
-  { t: "Signature Recognition Program", count: "50 Recipients", d: "A larger-scale recognition initiative for organizations committed to appreciation at scale." },
+  {
+    t: "Starter Recognition Program",
+    count: "10 Recipients",
+    d: "Ideal for leadership teams, pilot departments, and organizations introducing a culture of intentional recognition.",
+    perfect: ["Executive teams", "Small departments", "Founding employees", "Pilot programs", "Special milestones"],
+    cta: "Request Proposal",
+  },
+  {
+    t: "Standard Recognition Program",
+    count: "25 Recipients",
+    d: "Designed for organizations seeking meaningful recognition across teams, clients, stakeholders, or community members.",
+    perfect: ["Team recognition initiatives", "Client appreciation programs", "Volunteer recognition", "Community engagement programs", "Internal culture initiatives"],
+    cta: "Request Proposal",
+  },
+  {
+    t: "Signature Recognition Program",
+    count: "50 Recipients",
+    d: "A larger-scale appreciation initiative designed to strengthen culture, celebrate contribution, and recognize impact at scale.",
+    perfect: ["Annual recognition programs", "Employee appreciation campaigns", "Organizational milestones", "Company anniversaries", "National recognition initiatives"],
+    cta: "Request Proposal",
+  },
+  {
+    t: "Enterprise Recognition Program",
+    count: "100+ Recipients",
+    d: "Custom-designed recognition experiences for organizations committed to appreciation, culture, belonging, and legacy. Each engagement is tailored to the unique goals of the organization.",
+    perfect: ["Enterprise organizations", "Government institutions", "Universities", "Healthcare systems", "Associations", "National campaigns"],
+    cta: "Schedule Consultation",
+  },
 ];
 
 function FoundingPartner() {
@@ -178,41 +203,108 @@ function FoundingPartner() {
     <section className="py-24 lg:py-32" style={{ background: "var(--ivory)" }}>
       <div className="container-narrow">
         <div className="max-w-3xl">
-          <p className="label-eyebrow">Founding Institutional Partner Program</p>
+          <p className="label-eyebrow">Corporate Recognition Programs</p>
           <h2 className="font-display text-4xl lg:text-5xl mt-4 leading-[1.05] text-foreground">
-            Recognition shouldn't be reserved for{" "}
+            Recognition that people{" "}
             <span className="italic" style={{ color: "color-mix(in oklab, var(--rose) 75%, var(--ink))" }}>
-              retirement speeches.
+              never forget.
             </span>
           </h2>
           <div className="mt-8 space-y-4 text-lg text-foreground/80 leading-relaxed max-w-2xl">
-            <p>Receive Your Flowers is currently onboarding a limited number of organizations interested in piloting modern recognition experiences for employees, clients, partners, stakeholders, volunteers, and community leaders.</p>
-            <p>We are looking for a small group of founding institutional partners who want to build a culture of appreciation and recognition into the rhythm of their organization.</p>
+            <p>Most organizations reward performance. The best organizations celebrate people.</p>
+            <p>Receive Your Flowers helps companies create meaningful recognition experiences that preserve gratitude, appreciation, and impact in a way that lasts forever.</p>
+            <p>Whether recognizing employees, clients, partners, volunteers, donors, or leadership teams, every tribute becomes a permanent record of appreciation.</p>
           </div>
-          <p className="mt-6 text-base text-muted-foreground leading-relaxed max-w-2xl">
-            Founding Partner enrollment is intentionally limited while we scale our production capacity and maintain the quality, care, and attention each recognition experience deserves.
-          </p>
+          <div className="mt-10 space-y-4 text-base text-muted-foreground leading-relaxed max-w-2xl">
+            <p>Recognition should be more than a gift card, plaque, or generic email. The people who help build organizations deserve to hear the stories, gratitude, and appreciation that often go unsaid.</p>
+            <p>Receive Your Flowers transforms recognition into a lasting experience through curated video tributes, personal messages, photographs, and stories collected from the people who matter most.</p>
+          </div>
         </div>
-        <div className="mt-14 grid md:grid-cols-3 gap-5">
+        <div className="mt-16 grid md:grid-cols-2 gap-6">
           {PROGRAMS.map((p) => (
-            <div key={p.t} className="soft-card p-8 flex flex-col">
+            <div key={p.t} className="soft-card p-10 flex flex-col">
               <p className="label-eyebrow">{p.t}</p>
               <p className="font-display text-4xl mt-4 text-foreground">{p.count}</p>
               <div className="mt-5 editorial-rule" />
-              <p className="mt-5 text-muted-foreground leading-relaxed">{p.d}</p>
+              <p className="mt-5 text-foreground/80 leading-relaxed">{p.d}</p>
+              <p className="label-eyebrow mt-8">Perfect for</p>
+              <ul className="mt-3 space-y-1.5 text-muted-foreground leading-relaxed">
+                {p.perfect.map((x) => (
+                  <li key={x}>— {x}</li>
+                ))}
+              </ul>
+              <div className="mt-8">
+                <InstitutionalDialog
+                  trigger={
+                    <button className="btn-ghost">
+                      {p.cta} <ArrowRight className="w-4 h-4" />
+                    </button>
+                  }
+                />
+              </div>
             </div>
           ))}
         </div>
-        <p className="mt-10 max-w-2xl text-sm italic text-muted-foreground leading-relaxed">
-          Each program includes white-glove coordination, personalized production, and dedicated support.
+        <p className="mt-12 max-w-2xl text-sm italic text-muted-foreground leading-relaxed">
+          Each program includes white-glove coordination, personalized production, and dedicated support. Founding Partner enrollment is intentionally limited while we scale our production capacity and maintain the quality, care, and attention each recognition experience deserves.
         </p>
-        <div className="mt-10 flex flex-wrap items-center gap-3">
-          <InstitutionalDialog
-            trigger={<button className="btn-primary">Book an Enterprise Consultation <ArrowRight className="w-4 h-4" /></button>}
-          />
-          <InstitutionalDialog
-            trigger={<button className="btn-ghost">Discuss Partnership Opportunities</button>}
-          />
+      </div>
+    </section>
+  );
+}
+
+const INCLUDED = [
+  "Personalized recipient recognition pages",
+  "Curated video tribute experiences",
+  "Collection of messages from peers, leaders, friends, or family",
+  "Digital keepsake archives",
+  "Mobile-friendly viewing experience",
+  "Dedicated project coordination",
+  "Secure delivery and hosting",
+];
+
+const ENHANCEMENTS = [
+  "Professional video editing",
+  "Event presentations",
+  "Printed keepsakes",
+  "Recognition campaigns",
+  "Executive interviews",
+  "Custom storytelling packages",
+];
+
+function Included() {
+  return (
+    <section className="py-24 lg:py-32 border-t border-border" style={{ background: "color-mix(in oklab, var(--champagne) 12%, var(--ivory))" }}>
+      <div className="container-narrow">
+        <div className="max-w-3xl">
+          <p className="label-eyebrow">What Is Included</p>
+          <h2 className="font-display text-4xl lg:text-5xl mt-4 leading-[1.05] text-foreground">
+            Every detail, quietly considered.
+          </h2>
+        </div>
+        <div className="mt-16 grid md:grid-cols-2 gap-12 lg:gap-20">
+          <div>
+            <p className="label-eyebrow">Every recognition engagement includes</p>
+            <ul className="mt-6 space-y-4 text-lg text-foreground/80 leading-relaxed">
+              {INCLUDED.map((x) => (
+                <li key={x} className="flex gap-4">
+                  <span className="text-muted-foreground">—</span>
+                  <span>{x}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="label-eyebrow">Optional enhancements</p>
+            <ul className="mt-6 space-y-4 text-lg text-foreground/80 leading-relaxed">
+              {ENHANCEMENTS.map((x) => (
+                <li key={x} className="flex gap-4">
+                  <span className="text-muted-foreground">—</span>
+                  <span>{x}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -223,18 +315,56 @@ function Infrastructure() {
   return (
     <section className="py-24 lg:py-32 border-t border-border" style={{ background: "var(--ivory)" }}>
       <div className="container-narrow max-w-3xl">
-        <p className="label-eyebrow">Recognition Infrastructure</p>
-        <h2 className="font-display text-3xl lg:text-4xl mt-4 leading-[1.1] text-foreground">
-          The strongest organizations don't leave appreciation to{" "}
+        <p className="label-eyebrow">Why Recognition Matters</p>
+        <h2 className="font-display text-4xl lg:text-5xl mt-4 leading-[1.05] text-foreground">
+          People rarely forget how they were made{" "}
           <span className="italic" style={{ color: "color-mix(in oklab, var(--rose) 75%, var(--ink))" }}>
-            chance.
+            to feel.
           </span>
         </h2>
         <div className="mt-8 space-y-4 text-lg text-foreground/80 leading-relaxed">
-          <p>Recognition is not an event. It is a system.</p>
-          <p>The most admired organizations understand that appreciation, acknowledgment, and human connection are essential parts of culture.</p>
-          <p>Receive Your Flowers helps institutions build recognition into the rhythm of how they operate.</p>
+          <p>Recognition strengthens connection. Connection strengthens culture. Culture strengthens organizations.</p>
+          <p>The organizations that thrive over the long term are those that intentionally celebrate the people who make their success possible.</p>
+          <p>Receive Your Flowers exists to help make that appreciation visible.</p>
         </div>
+      </div>
+    </section>
+  );
+}
+
+const BEYOND = [
+  "Employees", "Clients", "Partners", "Donors", "Volunteers", "Teachers",
+  "Healthcare workers", "Alumni", "Board members", "Community leaders",
+  "Retiring executives", "Lifetime achievement recipients",
+];
+
+function Beyond() {
+  return (
+    <section className="py-24 lg:py-32 border-t border-border" style={{ background: "color-mix(in oklab, var(--champagne) 18%, var(--ivory))" }}>
+      <div className="container-narrow">
+        <div className="max-w-3xl">
+          <p className="label-eyebrow">Beyond Employee Recognition</p>
+          <h2 className="font-display text-4xl lg:text-5xl mt-4 leading-[1.05] text-foreground">
+            For everyone who has made a{" "}
+            <span className="italic" style={{ color: "color-mix(in oklab, var(--rose) 75%, var(--ink))" }}>
+              difference.
+            </span>
+          </h2>
+          <p className="mt-8 text-lg text-foreground/80 leading-relaxed max-w-2xl">
+            Receive Your Flowers is used to celebrate:
+          </p>
+        </div>
+        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-4">
+          {BEYOND.map((x) => (
+            <div key={x} className="flex items-baseline gap-4 border-b border-border pb-3">
+              <span className="text-muted-foreground text-sm">—</span>
+              <span className="font-display text-xl text-foreground">{x}</span>
+            </div>
+          ))}
+        </div>
+        <p className="mt-16 font-display italic text-2xl text-foreground/80 max-w-2xl">
+          If someone has made a difference, they deserve their flowers.
+        </p>
       </div>
     </section>
   );
@@ -279,13 +409,17 @@ function CTA() {
         </p>
         <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl mt-5 leading-[1.04] max-w-3xl mx-auto"
           style={{ color: "var(--ivory)" }}>
-          Recognition that feels <span className="italic" style={{ color: "var(--blush)" }}>human.</span>
+          Build a culture of <span className="italic" style={{ color: "var(--blush)" }}>appreciation.</span>
         </h2>
+        <p className="mt-8 text-lg max-w-2xl mx-auto leading-relaxed"
+          style={{ color: "color-mix(in oklab, var(--ivory) 80%, transparent)" }}>
+          The most valuable people in your organization should never have to wonder whether their contributions mattered. Create a recognition experience they'll remember forever.
+        </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
           <InstitutionalDialog
             trigger={
               <button className="btn-primary" style={{ background: "var(--ivory)", color: "var(--ink)" }}>
-                Book an Enterprise Consultation <ArrowRight className="w-4 h-4" />
+                Request Proposal <ArrowRight className="w-4 h-4" />
               </button>
             }
           />
@@ -294,7 +428,7 @@ function CTA() {
               <button className="btn-ghost"
                 style={{ borderColor: "color-mix(in oklab, var(--ivory) 35%, transparent)",
                          color: "var(--ivory)" }}>
-                Explore Partnership Opportunities
+                Schedule Consultation
               </button>
             }
           />
@@ -303,6 +437,7 @@ function CTA() {
           style={{ color: "color-mix(in oklab, var(--ivory) 80%, transparent)" }}>
           Some flowers are more than flowers.
         </p>
+
       </div>
     </section>
   );
@@ -337,7 +472,10 @@ function EnterprisePage() {
       <HowItWorks />
       <Offerings />
       <FoundingPartner />
+      <Included />
       <Infrastructure />
+      <Beyond />
+
       <CTA />
       <Footer />
     </main>
