@@ -189,6 +189,9 @@ function FoundingPartner() {
             <p>Receive Your Flowers is currently onboarding a limited number of organizations interested in piloting modern recognition experiences for employees, clients, partners, stakeholders, volunteers, and community leaders.</p>
             <p>We are looking for a small group of founding institutional partners who want to build a culture of appreciation and recognition into the rhythm of their organization.</p>
           </div>
+          <p className="mt-6 text-base text-muted-foreground leading-relaxed max-w-2xl">
+            Founding Partner enrollment is intentionally limited while we scale our production capacity and maintain the quality, care, and attention each recognition experience deserves.
+          </p>
         </div>
         <div className="mt-14 grid md:grid-cols-3 gap-5">
           {PROGRAMS.map((p) => (
