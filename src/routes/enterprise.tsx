@@ -409,13 +409,17 @@ function CTA() {
         </p>
         <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl mt-5 leading-[1.04] max-w-3xl mx-auto"
           style={{ color: "var(--ivory)" }}>
-          Recognition that feels <span className="italic" style={{ color: "var(--blush)" }}>human.</span>
+          Build a culture of <span className="italic" style={{ color: "var(--blush)" }}>appreciation.</span>
         </h2>
+        <p className="mt-8 text-lg max-w-2xl mx-auto leading-relaxed"
+          style={{ color: "color-mix(in oklab, var(--ivory) 80%, transparent)" }}>
+          The most valuable people in your organization should never have to wonder whether their contributions mattered. Create a recognition experience they'll remember forever.
+        </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
           <InstitutionalDialog
             trigger={
               <button className="btn-primary" style={{ background: "var(--ivory)", color: "var(--ink)" }}>
-                Book an Enterprise Consultation <ArrowRight className="w-4 h-4" />
+                Request Proposal <ArrowRight className="w-4 h-4" />
               </button>
             }
           />
@@ -424,7 +428,7 @@ function CTA() {
               <button className="btn-ghost"
                 style={{ borderColor: "color-mix(in oklab, var(--ivory) 35%, transparent)",
                          color: "var(--ivory)" }}>
-                Explore Partnership Opportunities
+                Schedule Consultation
               </button>
             }
           />
@@ -433,6 +437,7 @@ function CTA() {
           style={{ color: "color-mix(in oklab, var(--ivory) 80%, transparent)" }}>
           Some flowers are more than flowers.
         </p>
+
       </div>
     </section>
   );
