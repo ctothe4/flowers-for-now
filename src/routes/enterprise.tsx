@@ -111,35 +111,45 @@ function Intro() {
   );
 }
 
-function BeyondSurveys() {
+const STEPS = [
+  { n: "01", t: "Nominate", d: "Select the people you'd like to recognize and tell us why they matter." },
+  { n: "02", t: "Share", d: "Provide photos, stories, milestones, memories, and supporting materials through our guided intake process." },
+  { n: "03", t: "Create", d: "Our team produces personalized recognition experiences tailored to each recipient." },
+  { n: "04", t: "Deliver", d: "Completed tributes are delivered within 48 hours and can be shared privately or publicly." },
+];
+
+function HowItWorks() {
   return (
-    <section className="relative overflow-hidden" style={{ background: "#0E0B0A", color: "var(--ivory)" }}>
-      <div className="absolute inset-0 opacity-20 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-3xl"
-          style={{ background: "color-mix(in oklab, var(--rose) 40%, transparent)" }} />
-      </div>
-      <div className="container-narrow relative py-28 lg:py-40">
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="label-eyebrow" style={{ color: "color-mix(in oklab, var(--ivory) 65%, transparent)" }}>
-            Beyond Surveys
-          </p>
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl mt-5 leading-[1.04]"
-            style={{ color: "var(--ivory)" }}>
-            Most feedback systems feel <span className="italic" style={{ color: "var(--blush)" }}>transactional.</span>
+    <section className="py-24 lg:py-32 border-t border-border" style={{ background: "var(--ivory)" }}>
+      <div className="container-narrow">
+        <div className="max-w-3xl">
+          <p className="label-eyebrow">How It Works</p>
+          <h2 className="font-display text-4xl lg:text-5xl mt-4 leading-[1.05] text-foreground">
+            Simple for your organization.{" "}
+            <span className="italic" style={{ color: "color-mix(in oklab, var(--rose) 75%, var(--ink))" }}>
+              Meaningful for your people.
+            </span>
           </h2>
-          <div className="mt-10 space-y-5 text-lg leading-relaxed"
-            style={{ color: "color-mix(in oklab, var(--ivory) 78%, transparent)" }}>
-            <p>We're exploring more human ways for organizations to listen, respond, and build emotional connection through authentic video responses and appreciation-driven experiences.</p>
-            <p className="font-display italic text-2xl pt-6"
-              style={{ color: "color-mix(in oklab, var(--ivory) 90%, transparent)" }}>
-              No cold forms. No generic ratings. No robotic surveys.
-            </p>
-            <p className="font-display italic text-2xl"
-              style={{ color: "var(--blush)" }}>
-              Just real people, real stories, and real emotion.
-            </p>
+          <div className="mt-8 space-y-4 text-lg text-foreground/80 leading-relaxed max-w-2xl">
+            <p>Receive Your Flowers makes recognition effortless.</p>
+            <p>Whether you're celebrating employees, clients, partners, volunteers, alumni, or community leaders, our process is designed to be thoughtful, simple, and beautifully executed.</p>
           </div>
         </div>
+        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {STEPS.map((s) => (
+            <div key={s.n} className="relative">
+              <p className="font-display text-5xl" style={{ color: "color-mix(in oklab, var(--rose) 55%, transparent)" }}>
+                {s.n}
+              </p>
+              <div className="mt-4 editorial-rule" />
+              <h3 className="font-display text-2xl mt-5 text-foreground">{s.t}</h3>
+              <p className="mt-3 text-muted-foreground leading-relaxed">{s.d}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-16 max-w-2xl text-sm italic text-muted-foreground leading-relaxed">
+          Every recognition experience is reviewed by a human before delivery to ensure quality, accuracy, and emotional impact.
+        </p>
       </div>
     </section>
   );
@@ -149,7 +159,6 @@ const OFFERINGS = [
   { t: "Employee Appreciation", d: "Recognition experiences that feel earned, personal, and remembered." },
   { t: "Executive Recognition", d: "Tributes for leaders, founders, and the people who built the room." },
   { t: "Client Appreciation", d: "Relationship-deepening experiences for the people you serve." },
-  { t: "Human-Centered Feedback", d: "Video responses that reveal what surveys never could." },
   { t: "Relationship Campaigns", d: "Ongoing appreciation programs across the year." },
   { t: "Video Tribute Experiences", d: "Cinematic bouquets for milestones, farewells, and transitions." },
   { t: "Memorial Acknowledgements", d: "Quietly held remembrances for teams and communities." },
@@ -157,6 +166,76 @@ const OFFERINGS = [
   { t: "White-Glove Coordination", d: "A partner who handles every detail, with care." },
   { t: "Custom Branded Experiences", d: "Tailored to your organization's voice and visual identity." },
 ];
+
+const PROGRAMS = [
+  { t: "Starter Recognition Program", count: "10 Recipients", d: "Ideal for leadership teams, pilot departments, and first-time implementation." },
+  { t: "Standard Recognition Program", count: "25 Recipients", d: "Designed for organizations seeking meaningful recognition across teams, clients, or stakeholders." },
+  { t: "Signature Recognition Program", count: "50 Recipients", d: "A larger-scale recognition initiative for organizations committed to appreciation at scale." },
+];
+
+function FoundingPartner() {
+  return (
+    <section className="py-24 lg:py-32" style={{ background: "var(--ivory)" }}>
+      <div className="container-narrow">
+        <div className="max-w-3xl">
+          <p className="label-eyebrow">Founding Institutional Partner Program</p>
+          <h2 className="font-display text-4xl lg:text-5xl mt-4 leading-[1.05] text-foreground">
+            Recognition shouldn't be reserved for{" "}
+            <span className="italic" style={{ color: "color-mix(in oklab, var(--rose) 75%, var(--ink))" }}>
+              retirement speeches.
+            </span>
+          </h2>
+          <div className="mt-8 space-y-4 text-lg text-foreground/80 leading-relaxed max-w-2xl">
+            <p>Receive Your Flowers is currently onboarding a limited number of organizations interested in piloting modern recognition experiences for employees, clients, partners, stakeholders, volunteers, and community leaders.</p>
+            <p>We are looking for a small group of founding institutional partners who want to build a culture of appreciation and recognition into the rhythm of their organization.</p>
+          </div>
+        </div>
+        <div className="mt-14 grid md:grid-cols-3 gap-5">
+          {PROGRAMS.map((p) => (
+            <div key={p.t} className="soft-card p-8 flex flex-col">
+              <p className="label-eyebrow">{p.t}</p>
+              <p className="font-display text-4xl mt-4 text-foreground">{p.count}</p>
+              <div className="mt-5 editorial-rule" />
+              <p className="mt-5 text-muted-foreground leading-relaxed">{p.d}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-10 max-w-2xl text-sm italic text-muted-foreground leading-relaxed">
+          Each program includes white-glove coordination, personalized production, and dedicated support.
+        </p>
+        <div className="mt-10 flex flex-wrap items-center gap-3">
+          <InstitutionalDialog
+            trigger={<button className="btn-primary">Book an Enterprise Consultation <ArrowRight className="w-4 h-4" /></button>}
+          />
+          <InstitutionalDialog
+            trigger={<button className="btn-ghost">Discuss Partnership Opportunities</button>}
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Infrastructure() {
+  return (
+    <section className="py-24 lg:py-32 border-t border-border" style={{ background: "var(--ivory)" }}>
+      <div className="container-narrow max-w-3xl">
+        <p className="label-eyebrow">Recognition Infrastructure</p>
+        <h2 className="font-display text-3xl lg:text-4xl mt-4 leading-[1.1] text-foreground">
+          The strongest organizations don't leave appreciation to{" "}
+          <span className="italic" style={{ color: "color-mix(in oklab, var(--rose) 75%, var(--ink))" }}>
+            chance.
+          </span>
+        </h2>
+        <div className="mt-8 space-y-4 text-lg text-foreground/80 leading-relaxed">
+          <p>Recognition is not an event. It is a system.</p>
+          <p>The most admired organizations understand that appreciation, acknowledgment, and human connection are essential parts of culture.</p>
+          <p>Receive Your Flowers helps institutions build recognition into the rhythm of how they operate.</p>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function Offerings() {
   return (
