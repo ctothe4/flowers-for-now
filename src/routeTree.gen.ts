@@ -9,13 +9,25 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WelcomeRouteImport } from './routes/welcome'
 import { Route as StartVideoFlowerRouteImport } from './routes/start-video-flower'
+import { Route as FoundingCircleRouteImport } from './routes/founding-circle'
 import { Route as EnterpriseRouteImport } from './routes/enterprise'
 import { Route as IndexRouteImport } from './routes/index'
 
+const WelcomeRoute = WelcomeRouteImport.update({
+  id: '/welcome',
+  path: '/welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StartVideoFlowerRoute = StartVideoFlowerRouteImport.update({
   id: '/start-video-flower',
   path: '/start-video-flower',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FoundingCircleRoute = FoundingCircleRouteImport.update({
+  id: '/founding-circle',
+  path: '/founding-circle',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnterpriseRoute = EnterpriseRouteImport.update({
@@ -32,40 +44,78 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/enterprise': typeof EnterpriseRoute
+  '/founding-circle': typeof FoundingCircleRoute
   '/start-video-flower': typeof StartVideoFlowerRoute
+  '/welcome': typeof WelcomeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/enterprise': typeof EnterpriseRoute
+  '/founding-circle': typeof FoundingCircleRoute
   '/start-video-flower': typeof StartVideoFlowerRoute
+  '/welcome': typeof WelcomeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/enterprise': typeof EnterpriseRoute
+  '/founding-circle': typeof FoundingCircleRoute
   '/start-video-flower': typeof StartVideoFlowerRoute
+  '/welcome': typeof WelcomeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/enterprise' | '/start-video-flower'
+  fullPaths:
+    | '/'
+    | '/enterprise'
+    | '/founding-circle'
+    | '/start-video-flower'
+    | '/welcome'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/enterprise' | '/start-video-flower'
-  id: '__root__' | '/' | '/enterprise' | '/start-video-flower'
+  to:
+    | '/'
+    | '/enterprise'
+    | '/founding-circle'
+    | '/start-video-flower'
+    | '/welcome'
+  id:
+    | '__root__'
+    | '/'
+    | '/enterprise'
+    | '/founding-circle'
+    | '/start-video-flower'
+    | '/welcome'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EnterpriseRoute: typeof EnterpriseRoute
+  FoundingCircleRoute: typeof FoundingCircleRoute
   StartVideoFlowerRoute: typeof StartVideoFlowerRoute
+  WelcomeRoute: typeof WelcomeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/welcome': {
+      id: '/welcome'
+      path: '/welcome'
+      fullPath: '/welcome'
+      preLoaderRoute: typeof WelcomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/start-video-flower': {
       id: '/start-video-flower'
       path: '/start-video-flower'
       fullPath: '/start-video-flower'
       preLoaderRoute: typeof StartVideoFlowerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/founding-circle': {
+      id: '/founding-circle'
+      path: '/founding-circle'
+      fullPath: '/founding-circle'
+      preLoaderRoute: typeof FoundingCircleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/enterprise': {
@@ -88,7 +138,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EnterpriseRoute: EnterpriseRoute,
+  FoundingCircleRoute: FoundingCircleRoute,
   StartVideoFlowerRoute: StartVideoFlowerRoute,
+  WelcomeRoute: WelcomeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
