@@ -7,6 +7,7 @@ import {
 import { StartBouquetDialog } from "@/components/site/StartBouquetDialog";
 import { InstitutionalDialog } from "@/components/site/InstitutionalDialog";
 import { BouquetMockup } from "@/components/site/BouquetMockup";
+import { FoundingCircleModal } from "@/components/site/FoundingCircleModal";
 import gatheringImg from "@/assets/gathering.png";
 import monogram from "@/assets/ryf-monogram.png";
 
@@ -41,6 +42,7 @@ function HomePage() {
       <FinalCTA />
       <EnterpriseTeaser />
       <Footer />
+      <FoundingCircleModal />
     </main>
   );
 }
