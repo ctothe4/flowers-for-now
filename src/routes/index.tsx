@@ -23,6 +23,55 @@ const NAV = [
   { label: "FAQ", href: "#faq" },
 ];
 
+/* ---------------- COUNTRY PRICING ---------------- */
+const PRICING = {
+  US: { currency: "USD", symbol: "$", flower: 9.99, bouquet: 49.99 },
+  CA: { currency: "CAD", symbol: "$", flower: 9.99, bouquet: 49.99 },
+  ZM: { currency: "ZMW", symbol: "K", flower: 49, bouquet: 499 },
+} as const;
+
+type CountryCode = keyof typeof PRICING;
+
+const COUNTRIES: { code: CountryCode; flag: string; label: string }[] = [
+  { code: "US", flag: "🇺🇸", label: "USA" },
+  { code: "CA", flag: "🇨🇦", label: "Canada" },
+  { code: "ZM", flag: "🇿🇲", label: "Zambia" },
+];
+
+function formatPrice(code: CountryCode, amount: number) {
+  if (code === "ZM") return `${PRICING[code].symbol}${amount}`;
+  return `${PRICING[code].symbol}${amount.toFixed(2)}`;
+}
+
+function SageLeafIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M14 2C14 2 4 9 4 17C4 21 8 24 14 24C20 24 24 21 24 17C24 9 14 2 14 2Z"
+        fill="#A7B59A"
+        fillOpacity="0.85"
+      />
+      <path d="M14 2V24" stroke="#8A9A7E" strokeWidth="1.2" strokeLinecap="round" />
+      <path d="M14 12L10 8M14 16L18 12" stroke="#8A9A7E" strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function PetalEnvelopeIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3" y="9" width="22" height="14" rx="2" fill="#D8A5A1" fillOpacity="0.2" />
+      <path d="M3 9L14 17L25 9" stroke="#D8A5A1" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M14 3C14 3 11 6 11 9C11 11 12 12 14 12C16 12 17 11 17 9C17 6 14 3 14 3Z"
+        fill="#D8A5A1"
+        fillOpacity="0.7"
+      />
+    </svg>
+  );
+}
+
+
 
 function HomePage() {
   return (
