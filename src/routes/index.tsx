@@ -71,6 +71,212 @@ function PetalEnvelopeIcon() {
   );
 }
 
+function CountrySelector({
+  selected,
+  onSelect,
+}: {
+  selected: CountryCode;
+  onSelect: (c: CountryCode) => void;
+}) {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    const idx = COUNTRIES.findIndex((c) => c.code === selected);
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      const next = COUNTRIES[(idx + 1) % COUNTRIES.length];
+      onSelect(next.code);
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      const prev = COUNTRIES[(idx - 1 + COUNTRIES.length) % COUNTRIES.length];
+      onSelect(prev.code);
+    }
+  };
+
+  return (
+    <div
+      role="radiogroup"
+      aria-label="Select your country"
+      className="flex flex-col items-center gap-3"
+      onKeyDown={handleKeyDown}
+    >
+      <span className="label-eyebrow" style={{ color: "#D8A5A1" }}>
+        SELECT YOUR COUNTRY
+      </span>
+      <div
+        className="inline-flex rounded-full p-1.5 gap-1"
+        style={{ background: "#F2E6E3" }}
+      >
+        {COUNTRIES.map((c) => {
+          const isActive = c.code === selected;
+          return (
+            <button
+              key={c.code}
+              role="radio"
+              aria-checked={isActive}
+              onClick={() => onSelect(c.code)}
+              className="relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+              style={{
+                background: isActive ? "#D8A5A1" : "transparent",
+                color: isActive ? "#fff" : "#2B2B2B",
+                boxShadow: isActive
+                  ? "0 4px 14px -4px rgba(216,165,161,0.45)"
+                  : "none",
+                outlineColor: "#D8A5A1",
+              }}
+            >
+              <span className="flex items-center gap-2">
+                <span aria-hidden="true">{c.flag}</span>
+                <span>{c.label}</span>
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function PricingSection() {
+  const [country, setCountry] = useState<CountryCode>("US");
+  const [priceKey, setPriceKey] = useState(0);
+
+  useEffect(() => {
+    setPriceKey((k) => k + 1);
+  }, [country]);
+
+  const pricing = PRICING[country];
+  const flowerPrice = formatPrice(country, pricing.flower);
+  const bouquetPrice = formatPrice(country, pricing.bouquet);
+
+  return (
+    <section
+      id="pricing"
+      className="py-24 lg:py-32"
+      style={{ background: "#F6F2EC" }}
+    >
+      <div className="container-narrow">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+          <div className="max-w-2xl">
+            <p className="label-eyebrow">Pricing</p>
+            <h2
+              className="text-4xl lg:text-5xl mt-4 leading-[1.05] text-foreground"
+              style={{ fontFamily: "'Playfair Display', serif", letterSpacing: "-0.015em" }}
+            >
+              Send love from anywhere.
+            </h2>
+          </div>
+          <CountrySelector selected={country} onSelect={setCountry} />
+        </div>
+
+        <div className="mt-14 grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {/* Video Flower */}
+          <div
+            className="relative p-8 lg:p-10 rounded-xl transition-all duration-300 hover:-translate-y-0.5"
+            style={{
+              background: "#F6F2EC",
+              border: "1px solid #E8DFCF",
+              boxShadow:
+                "0 1px 2px rgba(43,43,43,0.04), 0 8px 24px -8px rgba(43,43,43,0.10)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow =
+                "0 1px 2px rgba(43,43,43,0.06), 0 12px 32px -8px rgba(43,43,43,0.16)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow =
+                "0 1px 2px rgba(43,43,43,0.04), 0 8px 24px -8px rgba(43,43,43,0.10)";
+            }}
+          >
+            <div className="flex items-center gap-3">
+              <SageLeafIcon />
+              <span
+                className="text-xs font-medium tracking-widest uppercase"
+                style={{ color: "#6F625D" }}
+              >
+                Video Flower
+              </span>
+            </div>
+            <div className="mt-5 text-5xl" style={{ color: "#2B2B2B", fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>
+              <span key={priceKey} className="inline-block animate-[priceFade_150ms_ease]">
+                {flowerPrice}
+              </span>
+            </div>
+            <p className="mt-4 leading-relaxed" style={{ color: "#6F625D" }}>
+              A single heartfelt message — video, voice, or written — sent to
+              someone you love.
+            </p>
+            <div className="mt-8">
+              <a
+                href="/start-video-flower"
+                className="inline-flex items-center justify-center w-full py-3 px-6 rounded-full text-sm font-medium text-white transition-all duration-200 hover:opacity-90"
+                style={{ background: "#D8A5A1" }}
+              >
+                Send a Flower
+              </a>
+            </div>
+          </div>
+
+          {/* Video Bouquet */}
+          <div
+            className="relative p-8 lg:p-10 rounded-xl transition-all duration-300 hover:-translate-y-0.5"
+            style={{
+              background: "#F2E6E3",
+              border: "1px solid #E8DFCF",
+              boxShadow:
+                "0 1px 2px rgba(43,43,43,0.04), 0 8px 24px -8px rgba(43,43,43,0.10)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow =
+                "0 1px 2px rgba(43,43,43,0.06), 0 12px 32px -8px rgba(43,43,43,0.16)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow =
+                "0 1px 2px rgba(43,43,43,0.04), 0 8px 24px -8px rgba(43,43,43,0.10)";
+            }}
+          >
+            <span
+              className="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] tracking-[0.22em] uppercase px-3 py-1.5 rounded-full font-medium text-white"
+              style={{ background: "#D8A5A1" }}
+            >
+              Most Popular
+            </span>
+            <div className="flex items-center gap-3">
+              <PetalEnvelopeIcon />
+              <span
+                className="text-xs font-medium tracking-widest uppercase"
+                style={{ color: "#6F625D" }}
+              >
+                Video Bouquet
+              </span>
+            </div>
+            <div className="mt-5 text-5xl" style={{ color: "#2B2B2B", fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>
+              <span key={priceKey} className="inline-block animate-[priceFade_150ms_ease]">
+                {bouquetPrice}
+              </span>
+            </div>
+            <p className="mt-4 leading-relaxed" style={{ color: "#6F625D" }}>
+              A full bouquet of video tributes from the people who love them
+              most. Curated, delivered, and kept forever.
+            </p>
+            <div className="mt-8">
+              <StartBouquetDialog
+                trigger={
+                  <button
+                    className="inline-flex items-center justify-center w-full py-3 px-6 rounded-full text-sm font-medium text-white transition-all duration-200 hover:opacity-90"
+                    style={{ background: "#D8A5A1" }}
+                  >
+                    Create a Bouquet
+                  </button>
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
 
 
 function HomePage() {
