@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, ArrowRight, Check, Lock, Mail, Sparkles } from "lucide-react";
 import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
