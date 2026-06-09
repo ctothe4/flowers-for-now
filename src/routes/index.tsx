@@ -289,6 +289,7 @@ function HomePage() {
       <HowItWorks />
       <Prompts />
       <Occasions />
+      <PricingSection />
       <Packages />
       <Teams />
       <Experience />
