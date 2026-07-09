@@ -11,10 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WelcomeRouteImport } from './routes/welcome'
 import { Route as StartVideoFlowerRouteImport } from './routes/start-video-flower'
-import { Route as InvitationsRouteImport } from './routes/invitations'
 import { Route as FoundingCircleRouteImport } from './routes/founding-circle'
 import { Route as EnterpriseRouteImport } from './routes/enterprise'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as InvitationsIndexRouteImport } from './routes/invitations.index'
 
 const WelcomeRoute = WelcomeRouteImport.update({
   id: '/welcome',
@@ -24,11 +24,6 @@ const WelcomeRoute = WelcomeRouteImport.update({
 const StartVideoFlowerRoute = StartVideoFlowerRouteImport.update({
   id: '/start-video-flower',
   path: '/start-video-flower',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InvitationsRoute = InvitationsRouteImport.update({
-  id: '/invitations',
-  path: '/invitations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FoundingCircleRoute = FoundingCircleRouteImport.update({
@@ -46,31 +41,36 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InvitationsIndexRoute = InvitationsIndexRouteImport.update({
+  id: '/invitations/',
+  path: '/invitations/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/enterprise': typeof EnterpriseRoute
   '/founding-circle': typeof FoundingCircleRoute
-  '/invitations': typeof InvitationsRoute
   '/start-video-flower': typeof StartVideoFlowerRoute
   '/welcome': typeof WelcomeRoute
+  '/invitations/': typeof InvitationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/enterprise': typeof EnterpriseRoute
   '/founding-circle': typeof FoundingCircleRoute
-  '/invitations': typeof InvitationsRoute
   '/start-video-flower': typeof StartVideoFlowerRoute
   '/welcome': typeof WelcomeRoute
+  '/invitations': typeof InvitationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/enterprise': typeof EnterpriseRoute
   '/founding-circle': typeof FoundingCircleRoute
-  '/invitations': typeof InvitationsRoute
   '/start-video-flower': typeof StartVideoFlowerRoute
   '/welcome': typeof WelcomeRoute
+  '/invitations/': typeof InvitationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -78,34 +78,34 @@ export interface FileRouteTypes {
     | '/'
     | '/enterprise'
     | '/founding-circle'
-    | '/invitations'
     | '/start-video-flower'
     | '/welcome'
+    | '/invitations/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/enterprise'
     | '/founding-circle'
-    | '/invitations'
     | '/start-video-flower'
     | '/welcome'
+    | '/invitations'
   id:
     | '__root__'
     | '/'
     | '/enterprise'
     | '/founding-circle'
-    | '/invitations'
     | '/start-video-flower'
     | '/welcome'
+    | '/invitations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EnterpriseRoute: typeof EnterpriseRoute
   FoundingCircleRoute: typeof FoundingCircleRoute
-  InvitationsRoute: typeof InvitationsRoute
   StartVideoFlowerRoute: typeof StartVideoFlowerRoute
   WelcomeRoute: typeof WelcomeRoute
+  InvitationsIndexRoute: typeof InvitationsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -122,13 +122,6 @@ declare module '@tanstack/react-router' {
       path: '/start-video-flower'
       fullPath: '/start-video-flower'
       preLoaderRoute: typeof StartVideoFlowerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/invitations': {
-      id: '/invitations'
-      path: '/invitations'
-      fullPath: '/invitations'
-      preLoaderRoute: typeof InvitationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/founding-circle': {
@@ -152,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/invitations/': {
+      id: '/invitations/'
+      path: '/invitations'
+      fullPath: '/invitations/'
+      preLoaderRoute: typeof InvitationsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -159,9 +159,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EnterpriseRoute: EnterpriseRoute,
   FoundingCircleRoute: FoundingCircleRoute,
-  InvitationsRoute: InvitationsRoute,
   StartVideoFlowerRoute: StartVideoFlowerRoute,
   WelcomeRoute: WelcomeRoute,
+  InvitationsIndexRoute: InvitationsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,73 +1,37 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Mail, PlayCircle, MessageCircle, Check } from "lucide-react";
+import {
+  ArrowRight,
+  Mail,
+  PlayCircle,
+  MessageCircle,
+  Check,
+  ShieldCheck,
+  UserCheck,
+} from "lucide-react";
+import { useState } from "react";
 import monogram from "@/assets/ryf-monogram.png";
+import { InvitationsNav, InvitationsFooter } from "@/components/site/InvitationsChrome";
+import { TIERS, WHATSAPP_URL } from "@/lib/invitations";
 
-export const Route = createFileRoute("/invitations")({
+export const Route = createFileRoute("/invitations/")({
   head: () => ({
     meta: [
       { title: "Invitation Flowers — Receive Your Flowers" },
-      { name: "description", content: "Elegant digital invitations with video messages and WhatsApp RSVPs — for weddings, memorials, birthdays, corporate events, and anniversaries." },
+      {
+        name: "description",
+        content:
+          "Elegant digital invitations with video messages and WhatsApp RSVPs — for weddings, memorials, birthdays, corporate events, and anniversaries.",
+      },
       { property: "og:title", content: "Invitation Flowers — Receive Your Flowers" },
-      { property: "og:description", content: "Invite them. Then let them celebrate you back. Digital invitations with video and WhatsApp RSVPs." },
+      {
+        property: "og:description",
+        content:
+          "Invite them. Then let them celebrate you back. Digital invitations with video and WhatsApp RSVPs.",
+      },
     ],
   }),
   component: InvitationsPage,
 });
-
-const WHATSAPP_URL =
-  "https://wa.me/?text=" +
-  encodeURIComponent("Hi Receive Your Flowers — I'd like to get started with an Invitation Flowers package.");
-
-function WhatsAppButton({ variant = "primary", children }: { variant?: "primary" | "ghost"; children: React.ReactNode }) {
-  return (
-    <a
-      href={WHATSAPP_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={variant === "primary" ? "btn-primary" : "btn-ghost"}
-    >
-      <MessageCircle className="w-4 h-4" /> {children}
-    </a>
-  );
-}
-
-function Nav() {
-  const items = [
-    { label: "How It Works", href: "/#how" },
-    { label: "Occasions", href: "/#occasions" },
-    { label: "Packages", href: "/#packages" },
-    { label: "Invitations", href: "/invitations" },
-    { label: "Enterprise", href: "/enterprise" },
-  ];
-  return (
-    <header
-      className="sticky top-0 z-50 backdrop-blur-md"
-      style={{
-        background: "color-mix(in oklab, var(--ivory) 82%, transparent)",
-        borderBottom: "1px solid color-mix(in oklab, var(--ink) 8%, transparent)",
-      }}
-    >
-      <div className="container-narrow flex items-center justify-between h-16">
-        <Link to="/" className="flex items-center gap-2.5 font-display text-lg sm:text-xl tracking-tight text-foreground">
-          <img src={monogram} alt="RYF monogram" width={36} height={36} className="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-cover" />
-          <span>Receive Your Flowers</span>
-        </Link>
-        <nav className="hidden lg:flex items-center gap-8">
-          {items.map((n) => (
-            <a key={n.href} href={n.href} className="nav-link">
-              {n.label}
-            </a>
-          ))}
-        </nav>
-        <div className="hidden lg:block">
-          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-primary text-sm py-2.5 px-5">
-            <MessageCircle className="w-4 h-4" /> WhatsApp
-          </a>
-        </div>
-      </div>
-    </header>
-  );
-}
 
 function Hero() {
   return (
@@ -75,7 +39,14 @@ function Hero() {
       <div className="container-narrow pt-16 sm:pt-24 lg:pt-28 pb-20 lg:pb-24">
         <div className="max-w-3xl reveal">
           <div className="flex items-center gap-3">
-            <img src={monogram} alt="" aria-hidden width={28} height={28} className="w-7 h-7 rounded-md object-cover opacity-90" />
+            <img
+              src={monogram}
+              alt=""
+              aria-hidden
+              width={28}
+              height={28}
+              className="w-7 h-7 rounded-md object-cover opacity-90"
+            />
             <p className="label-eyebrow">Invitation Flowers</p>
           </div>
           <h1 className="font-display text-[2.6rem] sm:text-6xl lg:text-[4.2rem] leading-[1.03] mt-5 text-foreground">
@@ -90,8 +61,12 @@ function Hero() {
             built in.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-3">
-            <WhatsAppButton>Get Started on WhatsApp <ArrowRight className="w-4 h-4" /></WhatsAppButton>
-            <a href="#pricing" className="btn-ghost">See Packages</a>
+            <a href="#pricing" className="btn-primary">
+              Choose a package <ArrowRight className="w-4 h-4" />
+            </a>
+            <Link to="/invitations/templates" className="btn-ghost">
+              Browse templates
+            </Link>
           </div>
         </div>
       </div>
@@ -116,6 +91,21 @@ function Why() {
       t: "Seamless RSVPs",
       d: "Guests confirm attendance over WhatsApp. The host gets a live dashboard.",
     },
+    {
+      icon: ShieldCheck,
+      t: "Open or Closed Registration",
+      d: "Choose whether anyone with the link can RSVP, or only guests on a list you provide.",
+    },
+    {
+      icon: UserCheck,
+      t: "Host Approval",
+      d: "Approve or deny individual RSVPs yourself. Every guest list stays in your control.",
+    },
+    {
+      icon: ArrowRight,
+      t: "Simple Flow",
+      d: "Choose a package, pay, share your details. We build your invite and hand you the link.",
+    },
   ];
   return (
     <section className="container-narrow py-24 lg:py-32">
@@ -125,7 +115,7 @@ function Why() {
           A softer, more human way to invite the people you love.
         </h2>
       </div>
-      <div className="mt-14 grid md:grid-cols-3 gap-6">
+      <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {items.map(({ icon: Icon, t, d }) => (
           <div key={t} className="soft-card p-8 lg:p-9">
             <span
@@ -148,13 +138,26 @@ function Why() {
 
 function HowItWorks() {
   const steps = [
-    { t: "Share your details", d: "Tell us about your event or service — date, tone, guest list size." },
-    { t: "We build your invite", d: "We craft your invitation page from a template matched to your occasion." },
-    { t: "Guests receive & RSVP", d: "Invitations go out on WhatsApp. Guests RSVP directly in the same thread." },
-    { t: "The circle continues", d: "After the occasion, guests are invited to send a video tribute bouquet through Receive Your Flowers." },
+    {
+      t: "Choose a package",
+      d: "Pick the invitation that fits the moment. Pay securely to reserve your build slot.",
+    },
+    {
+      t: "Share your details",
+      d: "Tell us the occasion, date, tone, and template preference in a short form.",
+    },
+    {
+      t: "We build your invite",
+      d: "We craft your invitation page and RSVP dashboard, usually within 48–96 hours.",
+    },
+    {
+      t: "Send your link",
+      d: "We hand you your shareable link and dashboard access over WhatsApp. You send. Guests RSVP.",
+    },
   ];
   return (
     <section
+      id="how"
       className="py-24 lg:py-32"
       style={{ background: "color-mix(in oklab, var(--champagne) 22%, var(--ivory))" }}
     >
@@ -181,45 +184,6 @@ function HowItWorks() {
   );
 }
 
-const TIERS = [
-  {
-    name: "Basic",
-    price: "K400",
-    blurb: "A quiet, elegant invitation — beautifully made.",
-    features: ["Single-page digital invite", "1 template", "WhatsApp RSVP tracking"],
-    popular: false,
-  },
-  {
-    name: "Standard",
-    price: "K700",
-    blurb: "Custom design with a live RSVP dashboard.",
-    features: ["Custom design", "Full template gallery", "Branded RSVP dashboard", "Guest reminders"],
-    popular: false,
-  },
-  {
-    name: "Video Invitation",
-    price: "K1,300",
-    blurb: "Add your voice and face to the invitation.",
-    features: [
-      "Everything in Standard",
-      "Host video message embedded in the invite",
-      "Professional trim and edit",
-    ],
-    popular: false,
-  },
-  {
-    name: "Together (Bundle)",
-    price: "K2,000",
-    blurb: "Invite them. Then let them celebrate you back.",
-    features: [
-      "Video Invitation package",
-      "Receive Your Flowers video tribute bouquet campaign",
-      "For the same occasion",
-    ],
-    popular: true,
-  },
-];
-
 function Pricing() {
   return (
     <section
@@ -233,13 +197,15 @@ function Pricing() {
           <h2 className="font-display text-4xl lg:text-5xl mt-4 leading-[1.05] text-foreground">
             Choose the invitation that fits the moment.
           </h2>
-          <p className="mt-5 text-sm text-muted-foreground">All packages are quoted in Zambian Kwacha.</p>
+          <p className="mt-5 text-sm text-muted-foreground">
+            All packages are quoted in Zambian Kwacha. Payment is taken before we begin your build.
+          </p>
         </div>
 
         <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {TIERS.map((p) => (
             <div
-              key={p.name}
+              key={p.id}
               className={`soft-card p-8 lg:p-9 flex flex-col relative ${p.popular ? "lg:-translate-y-3" : ""}`}
               style={
                 p.popular
@@ -259,7 +225,9 @@ function Pricing() {
               <div className="mt-2 flex items-baseline gap-2">
                 <span className="font-display text-5xl">{p.price}</span>
               </div>
-              <p className={`mt-3 leading-relaxed ${p.popular ? "text-ivory/70" : "text-muted-foreground"}`}>
+              <p
+                className={`mt-3 leading-relaxed ${p.popular ? "text-ivory/70" : "text-muted-foreground"}`}
+              >
                 {p.blurb}
               </p>
               <ul className="mt-7 space-y-3 flex-1">
@@ -273,16 +241,17 @@ function Pricing() {
                   </li>
                 ))}
               </ul>
-              <div className="mt-8">
-                <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <div className="mt-8 space-y-2">
+                <Link
+                  to="/invitations/$package"
+                  params={{ package: p.id }}
                   className={p.popular ? "btn-primary w-full" : "btn-ghost w-full"}
-                  style={p.popular ? { background: "var(--ivory)", color: "var(--ink)" } : undefined}
+                  style={
+                    p.popular ? { background: "var(--ivory)", color: "var(--ink)" } : undefined
+                  }
                 >
-                  <MessageCircle className="w-4 h-4" /> Get Started
-                </a>
+                  Find out more <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
             </div>
           ))}
@@ -292,9 +261,78 @@ function Pricing() {
   );
 }
 
+const FAQ_ITEMS = [
+  {
+    q: "What occasions do Invitation Flowers work for?",
+    a: "Anything worth marking — weddings, memorial services, showers, birthdays, anniversaries, corporate events, retirements, graduations. If it's a moment that gathers people, we can design the invitation for it.",
+  },
+  {
+    q: "How do RSVPs work?",
+    a: "Guests RSVP directly inside the invitation, and the host sees every response in a live dashboard. On Standard and above, we send gentle automated reminders as the date approaches. You can choose Open registration (anyone with the link can RSVP) or Closed registration (only guests on a list you provide), and approve or deny individual RSVPs yourself.",
+  },
+  {
+    q: "Can guests RSVP directly, without going through me?",
+    a: "Yes. Every guest RSVPs through their own invitation link — no back-and-forth with the host. If you're on Closed registration, only invited guests can respond; on Open, anyone with the link can. Either way, you approve who makes the final list.",
+  },
+  {
+    q: "How does the video message work on Video Invitation and Together?",
+    a: "You record a short video (phone quality is fine) or upload one you already have. We trim, colour, and audio-balance it, then embed it directly inside your invitation page so guests hear from you before they RSVP. On Together, guests can then send video tributes back to you through Receive Your Flowers after the occasion.",
+  },
+  {
+    q: "How fast is turnaround?",
+    a: "Basic invitations are typically ready within 48 hours of receiving your details. Standard is 72 hours. Video Invitation and Together take up to 96 hours because of the editing pass.",
+  },
+];
+
+function FAQ() {
+  const [open, setOpen] = useState<number | null>(0);
+  return (
+    <section id="faq" className="container-narrow py-24 lg:py-32">
+      <div className="max-w-2xl mx-auto text-center">
+        <p className="label-eyebrow">Questions</p>
+        <h2 className="font-display text-4xl lg:text-5xl mt-4 leading-[1.05] text-foreground">
+          What people ask us first.
+        </h2>
+      </div>
+      <div className="mt-14 max-w-3xl mx-auto space-y-3">
+        {FAQ_ITEMS.map((item, i) => {
+          const isOpen = open === i;
+          return (
+            <div key={item.q} className="soft-card overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setOpen(isOpen ? null : i)}
+                className="w-full flex items-start justify-between gap-6 text-left p-6 lg:p-7"
+                aria-expanded={isOpen}
+              >
+                <span className="font-display text-lg lg:text-xl text-foreground">{item.q}</span>
+                <span
+                  className="shrink-0 mt-1 font-display text-2xl leading-none"
+                  style={{ color: "var(--rose)" }}
+                  aria-hidden
+                >
+                  {isOpen ? "–" : "+"}
+                </span>
+              </button>
+              {isOpen && (
+                <div className="px-6 lg:px-7 pb-7 -mt-2 text-muted-foreground leading-relaxed">
+                  {item.a}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 function ClosingCTA() {
   return (
-    <section className="relative overflow-hidden" style={{ background: "var(--ink)", color: "var(--ivory)" }}>
+    <section
+      className="relative overflow-hidden"
+      style={{ background: "var(--ink)", color: "var(--ivory)" }}
+    >
       <div className="absolute inset-0 opacity-30 pointer-events-none">
         <div
           className="absolute -top-32 -right-20 w-[460px] h-[460px] rounded-full blur-3xl"
@@ -316,17 +354,27 @@ function ClosingCTA() {
           className="font-display text-4xl sm:text-5xl lg:text-6xl mt-5 leading-[1.04] max-w-3xl mx-auto"
           style={{ color: "var(--ivory)" }}
         >
-          Invite them. Then let them <span className="italic" style={{ color: "var(--blush)" }}>celebrate you back.</span>
+          Invite them. Then let them{" "}
+          <span className="italic" style={{ color: "var(--blush)" }}>
+            celebrate you back.
+          </span>
         </h2>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href="#pricing"
+            className="btn-primary"
+            style={{ background: "var(--ivory)", color: "var(--ink)" }}
+          >
+            Choose a package <ArrowRight className="w-4 h-4" />
+          </a>
           <a
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary"
-            style={{ background: "var(--ivory)", color: "var(--ink)" }}
+            className="btn-ghost"
+            style={{ color: "var(--ivory)", borderColor: "color-mix(in oklab, var(--ivory) 40%, transparent)" }}
           >
-            <MessageCircle className="w-4 h-4" /> Get Started on WhatsApp
+            <MessageCircle className="w-4 h-4" /> Ask us on WhatsApp
           </a>
         </div>
       </div>
@@ -334,31 +382,17 @@ function ClosingCTA() {
   );
 }
 
-function Footer() {
-  return (
-    <footer className="border-t border-border bg-background">
-      <div className="container-narrow py-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
-        <span>© {new Date().getFullYear()} Receive Your Flowers</span>
-        <div className="flex items-center gap-6">
-          <Link to="/" className="hover:text-foreground transition">Home</Link>
-          <Link to="/enterprise" className="hover:text-foreground transition">Enterprise</Link>
-          <a href="mailto:hello@receiveyourflowers.com" className="hover:text-foreground transition">Contact</a>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
 function InvitationsPage() {
   return (
     <main className="bg-background text-foreground">
-      <Nav />
+      <InvitationsNav />
       <Hero />
       <Why />
       <HowItWorks />
       <Pricing />
+      <FAQ />
       <ClosingCTA />
-      <Footer />
+      <InvitationsFooter />
     </main>
   );
 }
