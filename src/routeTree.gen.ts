@@ -15,6 +15,12 @@ import { Route as InvitationsRouteImport } from './routes/invitations'
 import { Route as FoundingCircleRouteImport } from './routes/founding-circle'
 import { Route as EnterpriseRouteImport } from './routes/enterprise'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as InvitationsIndexRouteImport } from './routes/invitations.index'
+import { Route as InvitationsTemplatesRouteImport } from './routes/invitations.templates'
+import { Route as InvitationsIntakeRouteImport } from './routes/invitations.intake'
+import { Route as InvitationsConfirmedRouteImport } from './routes/invitations.confirmed'
+import { Route as InvitationsPackageRouteImport } from './routes/invitations.$package'
+import { Route as InvitationsCheckoutPackageRouteImport } from './routes/invitations.checkout.$package'
 
 const WelcomeRoute = WelcomeRouteImport.update({
   id: '/welcome',
@@ -46,31 +52,79 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InvitationsIndexRoute = InvitationsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => InvitationsRoute,
+} as any)
+const InvitationsTemplatesRoute = InvitationsTemplatesRouteImport.update({
+  id: '/templates',
+  path: '/templates',
+  getParentRoute: () => InvitationsRoute,
+} as any)
+const InvitationsIntakeRoute = InvitationsIntakeRouteImport.update({
+  id: '/intake',
+  path: '/intake',
+  getParentRoute: () => InvitationsRoute,
+} as any)
+const InvitationsConfirmedRoute = InvitationsConfirmedRouteImport.update({
+  id: '/confirmed',
+  path: '/confirmed',
+  getParentRoute: () => InvitationsRoute,
+} as any)
+const InvitationsPackageRoute = InvitationsPackageRouteImport.update({
+  id: '/$package',
+  path: '/$package',
+  getParentRoute: () => InvitationsRoute,
+} as any)
+const InvitationsCheckoutPackageRoute =
+  InvitationsCheckoutPackageRouteImport.update({
+    id: '/checkout/$package',
+    path: '/checkout/$package',
+    getParentRoute: () => InvitationsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/enterprise': typeof EnterpriseRoute
   '/founding-circle': typeof FoundingCircleRoute
-  '/invitations': typeof InvitationsRoute
+  '/invitations': typeof InvitationsRouteWithChildren
   '/start-video-flower': typeof StartVideoFlowerRoute
   '/welcome': typeof WelcomeRoute
+  '/invitations/$package': typeof InvitationsPackageRoute
+  '/invitations/confirmed': typeof InvitationsConfirmedRoute
+  '/invitations/intake': typeof InvitationsIntakeRoute
+  '/invitations/templates': typeof InvitationsTemplatesRoute
+  '/invitations/': typeof InvitationsIndexRoute
+  '/invitations/checkout/$package': typeof InvitationsCheckoutPackageRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/enterprise': typeof EnterpriseRoute
   '/founding-circle': typeof FoundingCircleRoute
-  '/invitations': typeof InvitationsRoute
   '/start-video-flower': typeof StartVideoFlowerRoute
   '/welcome': typeof WelcomeRoute
+  '/invitations/$package': typeof InvitationsPackageRoute
+  '/invitations/confirmed': typeof InvitationsConfirmedRoute
+  '/invitations/intake': typeof InvitationsIntakeRoute
+  '/invitations/templates': typeof InvitationsTemplatesRoute
+  '/invitations': typeof InvitationsIndexRoute
+  '/invitations/checkout/$package': typeof InvitationsCheckoutPackageRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/enterprise': typeof EnterpriseRoute
   '/founding-circle': typeof FoundingCircleRoute
-  '/invitations': typeof InvitationsRoute
+  '/invitations': typeof InvitationsRouteWithChildren
   '/start-video-flower': typeof StartVideoFlowerRoute
   '/welcome': typeof WelcomeRoute
+  '/invitations/$package': typeof InvitationsPackageRoute
+  '/invitations/confirmed': typeof InvitationsConfirmedRoute
+  '/invitations/intake': typeof InvitationsIntakeRoute
+  '/invitations/templates': typeof InvitationsTemplatesRoute
+  '/invitations/': typeof InvitationsIndexRoute
+  '/invitations/checkout/$package': typeof InvitationsCheckoutPackageRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,14 +135,25 @@ export interface FileRouteTypes {
     | '/invitations'
     | '/start-video-flower'
     | '/welcome'
+    | '/invitations/$package'
+    | '/invitations/confirmed'
+    | '/invitations/intake'
+    | '/invitations/templates'
+    | '/invitations/'
+    | '/invitations/checkout/$package'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/enterprise'
     | '/founding-circle'
-    | '/invitations'
     | '/start-video-flower'
     | '/welcome'
+    | '/invitations/$package'
+    | '/invitations/confirmed'
+    | '/invitations/intake'
+    | '/invitations/templates'
+    | '/invitations'
+    | '/invitations/checkout/$package'
   id:
     | '__root__'
     | '/'
@@ -97,13 +162,19 @@ export interface FileRouteTypes {
     | '/invitations'
     | '/start-video-flower'
     | '/welcome'
+    | '/invitations/$package'
+    | '/invitations/confirmed'
+    | '/invitations/intake'
+    | '/invitations/templates'
+    | '/invitations/'
+    | '/invitations/checkout/$package'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EnterpriseRoute: typeof EnterpriseRoute
   FoundingCircleRoute: typeof FoundingCircleRoute
-  InvitationsRoute: typeof InvitationsRoute
+  InvitationsRoute: typeof InvitationsRouteWithChildren
   StartVideoFlowerRoute: typeof StartVideoFlowerRoute
   WelcomeRoute: typeof WelcomeRoute
 }
@@ -152,14 +223,78 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/invitations/': {
+      id: '/invitations/'
+      path: '/'
+      fullPath: '/invitations/'
+      preLoaderRoute: typeof InvitationsIndexRouteImport
+      parentRoute: typeof InvitationsRoute
+    }
+    '/invitations/templates': {
+      id: '/invitations/templates'
+      path: '/templates'
+      fullPath: '/invitations/templates'
+      preLoaderRoute: typeof InvitationsTemplatesRouteImport
+      parentRoute: typeof InvitationsRoute
+    }
+    '/invitations/intake': {
+      id: '/invitations/intake'
+      path: '/intake'
+      fullPath: '/invitations/intake'
+      preLoaderRoute: typeof InvitationsIntakeRouteImport
+      parentRoute: typeof InvitationsRoute
+    }
+    '/invitations/confirmed': {
+      id: '/invitations/confirmed'
+      path: '/confirmed'
+      fullPath: '/invitations/confirmed'
+      preLoaderRoute: typeof InvitationsConfirmedRouteImport
+      parentRoute: typeof InvitationsRoute
+    }
+    '/invitations/$package': {
+      id: '/invitations/$package'
+      path: '/$package'
+      fullPath: '/invitations/$package'
+      preLoaderRoute: typeof InvitationsPackageRouteImport
+      parentRoute: typeof InvitationsRoute
+    }
+    '/invitations/checkout/$package': {
+      id: '/invitations/checkout/$package'
+      path: '/checkout/$package'
+      fullPath: '/invitations/checkout/$package'
+      preLoaderRoute: typeof InvitationsCheckoutPackageRouteImport
+      parentRoute: typeof InvitationsRoute
+    }
   }
 }
+
+interface InvitationsRouteChildren {
+  InvitationsPackageRoute: typeof InvitationsPackageRoute
+  InvitationsConfirmedRoute: typeof InvitationsConfirmedRoute
+  InvitationsIntakeRoute: typeof InvitationsIntakeRoute
+  InvitationsTemplatesRoute: typeof InvitationsTemplatesRoute
+  InvitationsIndexRoute: typeof InvitationsIndexRoute
+  InvitationsCheckoutPackageRoute: typeof InvitationsCheckoutPackageRoute
+}
+
+const InvitationsRouteChildren: InvitationsRouteChildren = {
+  InvitationsPackageRoute: InvitationsPackageRoute,
+  InvitationsConfirmedRoute: InvitationsConfirmedRoute,
+  InvitationsIntakeRoute: InvitationsIntakeRoute,
+  InvitationsTemplatesRoute: InvitationsTemplatesRoute,
+  InvitationsIndexRoute: InvitationsIndexRoute,
+  InvitationsCheckoutPackageRoute: InvitationsCheckoutPackageRoute,
+}
+
+const InvitationsRouteWithChildren = InvitationsRoute._addFileChildren(
+  InvitationsRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EnterpriseRoute: EnterpriseRoute,
   FoundingCircleRoute: FoundingCircleRoute,
-  InvitationsRoute: InvitationsRoute,
+  InvitationsRoute: InvitationsRouteWithChildren,
   StartVideoFlowerRoute: StartVideoFlowerRoute,
   WelcomeRoute: WelcomeRoute,
 }
