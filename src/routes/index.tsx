@@ -19,9 +19,11 @@ const NAV = [
   { label: "How It Works", href: "#how" },
   { label: "Occasions", href: "#occasions" },
   { label: "Packages", href: "#packages" },
+  { label: "Invitations", href: "/invitations" },
   { label: "Enterprise", href: "/enterprise" },
   { label: "FAQ", href: "#faq" },
 ];
+
 
 
 function HomePage() {
