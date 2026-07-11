@@ -204,7 +204,7 @@ function PackagePage() {
             >
               <h3 className="font-display text-2xl">{o.name}</h3>
               <p className="mt-1 font-display text-3xl" style={{ color: "var(--rose)" }}>
-                {o.price}
+                {`${pricing.symbol}${pricing[o.id]}`}
               </p>
               <p className="mt-3 text-muted-foreground leading-relaxed">{o.blurb}</p>
               <p className="mt-6 text-sm inline-flex items-center gap-1 text-foreground/80">
