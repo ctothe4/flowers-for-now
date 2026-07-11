@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound, useParams } from "@tanstack/react-rout
 import { ArrowRight, Check, MessageCircle, Clock } from "lucide-react";
 import { InvitationsNav, InvitationsFooter } from "@/components/site/InvitationsChrome";
 import { TIERS, findTier, WHATSAPP_URL } from "@/lib/invitations";
+import { useInvitationPricing, whatsappUrl } from "@/lib/pricing";
 
 export const Route = createFileRoute("/invitations/$package")({
   loader: ({ params }) => {
@@ -45,6 +46,10 @@ function PackagePage() {
   const { package: id } = useParams({ from: "/invitations/$package" });
   const tier = findTier(id)!;
   const others = TIERS.filter((t) => t.id !== tier.id);
+  const pricing = useInvitationPricing();
+  const price = `${pricing.symbol}${pricing[tier.id]}`;
+  const isZM = pricing.country === "ZM";
+  const zmHref = whatsappUrl(`Hi Receive Your Flowers — I'd like the ${tier.name} Invitation (${price}). Please share next steps.`);
 
   return (
     <main className="bg-background text-foreground">
@@ -74,17 +79,23 @@ function PackagePage() {
             </div>
             <div className="soft-card p-8">
               <div className="flex items-baseline gap-2">
-                <span className="font-display text-5xl">{tier.price}</span>
+                <span className="font-display text-5xl">{price}</span>
                 <span className="text-sm text-muted-foreground">one-time</span>
               </div>
               <p className="mt-3 text-muted-foreground leading-relaxed">{tier.blurb}</p>
-              <Link
-                to="/invitations/checkout/$package"
-                params={{ package: tier.id }}
-                className="btn-primary w-full mt-7"
-              >
-                Choose this package <ArrowRight className="w-4 h-4" />
-              </Link>
+              {isZM ? (
+                <a href={zmHref} target="_blank" rel="noopener noreferrer" className="btn-primary w-full mt-7">
+                  Pay via WhatsApp <ArrowRight className="w-4 h-4" />
+                </a>
+              ) : (
+                <Link
+                  to="/invitations/checkout/$package"
+                  params={{ package: tier.id }}
+                  className="btn-primary w-full mt-7"
+                >
+                  Choose this package <ArrowRight className="w-4 h-4" />
+                </Link>
+              )}
               <p className="mt-3 text-xs text-muted-foreground text-center">
                 Payment first, then share your details.
               </p>
@@ -155,13 +166,19 @@ function PackagePage() {
           </p>
 
           <div className="mt-14 flex flex-wrap items-center gap-3">
-            <Link
-              to="/invitations/checkout/$package"
-              params={{ package: tier.id }}
-              className="btn-primary"
-            >
-              Choose this package <ArrowRight className="w-4 h-4" />
-            </Link>
+            {isZM ? (
+              <a href={zmHref} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                Pay via WhatsApp <ArrowRight className="w-4 h-4" />
+              </a>
+            ) : (
+              <Link
+                to="/invitations/checkout/$package"
+                params={{ package: tier.id }}
+                className="btn-primary"
+              >
+                Choose this package <ArrowRight className="w-4 h-4" />
+              </Link>
+            )}
             <a
               href={WHATSAPP_URL}
               target="_blank"
@@ -187,7 +204,7 @@ function PackagePage() {
             >
               <h3 className="font-display text-2xl">{o.name}</h3>
               <p className="mt-1 font-display text-3xl" style={{ color: "var(--rose)" }}>
-                {o.price}
+                {`${pricing.symbol}${pricing[o.id]}`}
               </p>
               <p className="mt-3 text-muted-foreground leading-relaxed">{o.blurb}</p>
               <p className="mt-6 text-sm inline-flex items-center gap-1 text-foreground/80">

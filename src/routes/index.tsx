@@ -8,6 +8,7 @@ import { StartBouquetDialog } from "@/components/site/StartBouquetDialog";
 import { InstitutionalDialog } from "@/components/site/InstitutionalDialog";
 import { BouquetMockup } from "@/components/site/BouquetMockup";
 import { FoundingCircleModal } from "@/components/site/FoundingCircleModal";
+import { useConsumerPricing, whatsappUrl } from "@/lib/pricing";
 import gatheringImg from "@/assets/gathering.png";
 import monogram from "@/assets/ryf-monogram.png";
 
@@ -333,10 +334,21 @@ function Occasions() {
 }
 
 /* ---------------- PACKAGES ---------------- */
-const PACKAGES = [
+type PackageKey = "flower" | "mini" | "classic" | "legacy";
+type PackageDef = {
+  name: string;
+  priceKey: PackageKey;
+  blurb: string;
+  features: string[];
+  cta: string;
+  popular: boolean;
+  dialogKey: "Video Flower" | "Mini Bouquet" | "Classic Bouquet" | "Legacy Bouquet";
+};
+
+const PACKAGES: PackageDef[] = [
   {
     name: "Video Flower",
-    price: "$9.99",
+    priceKey: "flower",
     blurb: "One heartfelt video message, beautifully packaged and delivered as a private keepsake.",
     features: [
       "1 private video message",
@@ -347,38 +359,40 @@ const PACKAGES = [
     ],
     cta: "Send a Video Flower",
     popular: false,
-    key: "Video Flower" as const,
+    dialogKey: "Video Flower",
   },
   {
     name: "Mini Bouquet",
-    price: "$49",
+    priceKey: "mini",
     blurb: "For intimate messages from a small circle.",
     features: ["Up to 10 video submissions", "Private bouquet page", "Simple automated compilation", "Delivery by email"],
     cta: "Start Mini Bouquet",
     popular: false,
-    key: "Mini Bouquet" as const,
+    dialogKey: "Mini Bouquet",
   },
   {
     name: "Classic Bouquet",
-    price: "$149",
+    priceKey: "classic",
     blurb: "For birthdays, parents, mentors, and meaningful milestones.",
     features: ["Up to 30 video submissions", "Edited video bouquet", "Private tribute page", "Captions", "Downloadable final video", "Contributor reminder emails"],
     cta: "Start Classic Bouquet",
     popular: true,
-    key: "Classic Bouquet" as const,
+    dialogKey: "Classic Bouquet",
   },
   {
     name: "Legacy Bouquet",
-    price: "$299",
+    priceKey: "legacy",
     blurb: "For elders, founders, major milestones, and once-in-a-lifetime celebrations.",
     features: ["Up to 75 video submissions", "Premium edited tribute", "Highlight reel", "Written quote wall", "Downloadable archive", "Optional shareable clips"],
     cta: "Start Legacy Bouquet",
     popular: false,
-    key: "Legacy Bouquet" as const,
+    dialogKey: "Legacy Bouquet",
   },
 ];
 
 function Packages() {
+  const pricing = useConsumerPricing();
+  const isZM = pricing.country === "ZM";
   return (
     <section id="packages" className="py-24 lg:py-32"
       style={{ background: "color-mix(in oklab, var(--blush) 18%, var(--ivory))" }}>
@@ -395,7 +409,9 @@ function Packages() {
         </p>
 
         <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
-          {PACKAGES.map((p) => (
+          {PACKAGES.map((p) => {
+            const price = `${pricing.symbol}${pricing[p.priceKey]}`;
+            return (
             <div key={p.name}
               className={`soft-card p-8 lg:p-9 flex flex-col relative ${p.popular ? "lg:-translate-y-3" : ""}`}
               style={p.popular ? {
@@ -413,7 +429,7 @@ function Packages() {
               )}
               <h3 className="font-display text-2xl">{p.name}</h3>
               <div className="mt-2 flex items-baseline gap-2">
-                <span className="font-display text-5xl">{p.price}</span>
+                <span className="font-display text-5xl">{price}</span>
               </div>
               <p className={`mt-3 leading-relaxed ${p.popular ? "text-ivory/70" : "text-muted-foreground"}`}>
                 {p.blurb}
@@ -430,13 +446,23 @@ function Packages() {
               </ul>
 
               <div className="mt-8">
-                {p.key === "Video Flower" ? (
+                {isZM ? (
+                  <a
+                    href={whatsappUrl(`Hi Receive Your Flowers — I'd like to order the ${p.name} (${price}). Please share next steps.`)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={p.popular ? "btn-primary w-full inline-flex" : "btn-ghost w-full inline-flex"}
+                    style={p.popular ? { background: "var(--ivory)", color: "var(--ink)" } : undefined}
+                  >
+                    Pay via WhatsApp
+                  </a>
+                ) : p.dialogKey === "Video Flower" ? (
                   <a href="/start-video-flower" className="btn-ghost w-full inline-flex">
                     {p.cta}
                   </a>
                 ) : (
                   <StartBouquetDialog
-                    defaultPackage={p.key}
+                    defaultPackage={p.dialogKey}
                     trigger={
                       <button
                         className={p.popular
@@ -451,7 +477,8 @@ function Packages() {
                 )}
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         <p className="mt-10 text-center text-sm text-muted-foreground max-w-2xl mx-auto">

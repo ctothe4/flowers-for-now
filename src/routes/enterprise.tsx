@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ArrowRight, Menu, X, Mail } from "lucide-react";
 import monogram from "@/assets/ryf-monogram.png";
 import { InstitutionalDialog } from "@/components/site/InstitutionalDialog";
+import { useEnterprisePricing, whatsappUrl } from "@/lib/pricing";
 
 export const Route = createFileRoute("/enterprise")({
   head: () => ({
@@ -170,6 +171,7 @@ const OFFERINGS = [
 const PROGRAMS = [
   {
     t: "Starter Recognition Program",
+    priceKey: "starter" as const,
     count: "10 Recipients",
     d: "Ideal for leadership teams, pilot departments, and organizations introducing a culture of intentional recognition.",
     perfect: ["Executive teams", "Small departments", "Founding employees", "Pilot programs", "Special milestones"],
@@ -177,6 +179,7 @@ const PROGRAMS = [
   },
   {
     t: "Standard Recognition Program",
+    priceKey: "standard" as const,
     count: "25 Recipients",
     d: "Designed for organizations seeking meaningful recognition across teams, clients, stakeholders, or community members.",
     perfect: ["Team recognition initiatives", "Client appreciation programs", "Volunteer recognition", "Community engagement programs", "Internal culture initiatives"],
@@ -184,6 +187,7 @@ const PROGRAMS = [
   },
   {
     t: "Signature Recognition Program",
+    priceKey: "signature" as const,
     count: "50 Recipients",
     d: "A larger-scale appreciation initiative designed to strengthen culture, celebrate contribution, and recognize impact at scale.",
     perfect: ["Annual recognition programs", "Employee appreciation campaigns", "Organizational milestones", "Company anniversaries", "National recognition initiatives"],
@@ -191,6 +195,7 @@ const PROGRAMS = [
   },
   {
     t: "Enterprise Recognition Program",
+    priceKey: null,
     count: "100+ Recipients",
     d: "Custom-designed recognition experiences for organizations committed to appreciation, culture, belonging, and legacy. Each engagement is tailored to the unique goals of the organization.",
     perfect: ["Enterprise organizations", "Government institutions", "Universities", "Healthcare systems", "Associations", "National campaigns"],
@@ -199,6 +204,8 @@ const PROGRAMS = [
 ];
 
 function FoundingPartner() {
+  const pricing = useEnterprisePricing();
+  const isZM = pricing.country === "ZM";
   return (
     <section className="py-24 lg:py-32" style={{ background: "var(--ivory)" }}>
       <div className="container-narrow">
@@ -221,10 +228,17 @@ function FoundingPartner() {
           </div>
         </div>
         <div className="mt-16 grid md:grid-cols-2 gap-6">
-          {PROGRAMS.map((p) => (
+          {PROGRAMS.map((p) => {
+            const priceLabel = p.priceKey
+              ? `${pricing.symbol}${pricing[p.priceKey]}`
+              : "Custom Quote";
+            return (
             <div key={p.t} className="soft-card p-10 flex flex-col">
               <p className="label-eyebrow">{p.t}</p>
               <p className="font-display text-4xl mt-4 text-foreground">{p.count}</p>
+              <p className="font-display text-3xl mt-2" style={{ color: "color-mix(in oklab, var(--rose) 75%, var(--ink))" }}>
+                {priceLabel}
+              </p>
               <div className="mt-5 editorial-rule" />
               <p className="mt-5 text-foreground/80 leading-relaxed">{p.d}</p>
               <p className="label-eyebrow mt-8">Perfect for</p>
@@ -234,16 +248,28 @@ function FoundingPartner() {
                 ))}
               </ul>
               <div className="mt-8">
-                <InstitutionalDialog
-                  trigger={
-                    <button className="btn-ghost">
-                      {p.cta} <ArrowRight className="w-4 h-4" />
-                    </button>
-                  }
-                />
+                {isZM ? (
+                  <a
+                    href={whatsappUrl(`Hi Receive Your Flowers — I'd like to enquire about the ${p.t} (${priceLabel}).`)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-ghost inline-flex"
+                  >
+                    Enquire via WhatsApp <ArrowRight className="w-4 h-4" />
+                  </a>
+                ) : (
+                  <InstitutionalDialog
+                    trigger={
+                      <button className="btn-ghost">
+                        {p.cta} <ArrowRight className="w-4 h-4" />
+                      </button>
+                    }
+                  />
+                )}
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
         <p className="mt-12 max-w-2xl text-sm italic text-muted-foreground leading-relaxed">
           Each program includes white-glove coordination, personalized production, and dedicated support. Founding Partner enrollment is intentionally limited while we scale our production capacity and maintain the quality, care, and attention each recognition experience deserves.

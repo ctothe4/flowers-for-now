@@ -1,12 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Lock, Heart } from "lucide-react";
+import { useConsumerPricing, whatsappUrl } from "@/lib/pricing";
 
 export const Route = createFileRoute("/start-video-flower")({
   component: StartVideoFlowerPage,
 });
 
 function StartVideoFlowerPage() {
+  const pricing = useConsumerPricing();
+  const price = `${pricing.symbol}${pricing.flower}`;
+  const isZM = pricing.country === "ZM";
   return (
     <main className="bg-background text-foreground min-h-screen">
       <header className="sticky top-0 z-50 backdrop-blur-md"
@@ -53,13 +57,24 @@ function StartVideoFlowerPage() {
             <div className="mt-8 pt-8 editorial-rule">
               <div className="flex items-baseline justify-between">
                 <span className="font-display text-2xl">Video Flower</span>
-                <span className="font-display text-4xl">$9.99</span>
+                <span className="font-display text-4xl">{price}</span>
               </div>
             </div>
             <div className="mt-8">
-              <button className="btn-primary w-full">
-                Continue to Payment <ArrowRight className="w-4 h-4" />
-              </button>
+              {isZM ? (
+                <a
+                  href={whatsappUrl(`Hi Receive Your Flowers — I'd like to send a Video Flower (${price}).`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary w-full inline-flex"
+                >
+                  Pay via WhatsApp <ArrowRight className="w-4 h-4" />
+                </a>
+              ) : (
+                <button className="btn-primary w-full">
+                  Continue to Payment <ArrowRight className="w-4 h-4" />
+                </button>
+              )}
             </div>
             <div className="mt-6 flex items-center justify-center gap-2 text-xs text-muted-foreground">
               <Lock className="w-3.5 h-3.5" /> Private delivery. No account required.

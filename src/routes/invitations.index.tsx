@@ -12,6 +12,7 @@ import { useState } from "react";
 import monogram from "@/assets/ryf-monogram.png";
 import { InvitationsNav, InvitationsFooter } from "@/components/site/InvitationsChrome";
 import { TIERS, WHATSAPP_URL } from "@/lib/invitations";
+import { useInvitationPricing } from "@/lib/pricing";
 
 export const Route = createFileRoute("/invitations/")({
   head: () => ({
@@ -185,6 +186,7 @@ function HowItWorks() {
 }
 
 function Pricing() {
+  const pricing = useInvitationPricing();
   return (
     <section
       id="pricing"
@@ -198,7 +200,7 @@ function Pricing() {
             Choose the invitation that fits the moment.
           </h2>
           <p className="mt-5 text-sm text-muted-foreground">
-            All packages are quoted in Zambian Kwacha. Payment is taken before we begin your build.
+            Payment is taken before we begin your build.
           </p>
         </div>
 
@@ -223,7 +225,7 @@ function Pricing() {
               )}
               <h3 className="font-display text-2xl">{p.name}</h3>
               <div className="mt-2 flex items-baseline gap-2">
-                <span className="font-display text-5xl">{p.price}</span>
+                <span className="font-display text-5xl">{`${pricing.symbol}${pricing[p.id]}`}</span>
               </div>
               <p
                 className={`mt-3 leading-relaxed ${p.popular ? "text-ivory/70" : "text-muted-foreground"}`}
