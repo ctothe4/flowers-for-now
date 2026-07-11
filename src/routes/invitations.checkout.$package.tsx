@@ -38,6 +38,10 @@ function CheckoutPage() {
   const { package: id } = useParams({ from: "/invitations/checkout/$package" });
   const tier = findTier(id)!;
   const navigate = useNavigate();
+  const pricing = useInvitationPricing();
+  const price = `${pricing.symbol}${pricing[tier.id]}`;
+  const isZM = pricing.country === "ZM";
+  const zmHref = whatsappUrl(`Hi Receive Your Flowers — I'd like to pay for the ${tier.name} Invitation (${price}) via WhatsApp.`);
 
   const [method, setMethod] = useState<Method>("card");
   const [name, setName] = useState("");
