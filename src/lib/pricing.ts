@@ -13,9 +13,11 @@ type InvitationRow = {
 };
 
 type EnterpriseRow = {
-  currency: string; symbol: string;
-  starter: string; standard: string; signature: string;
+  currency: string;
+  starter: string; // one-time, pre-formatted with symbol
+  growth: string;  // subscription per quarter, pre-formatted with symbol
 };
+
 
 // Consumer: Flower / Mini / Classic / Legacy
 const c = (currency: string, symbol: string, flower: string, mini: string, classic: string, legacy: string): ConsumerRow =>
