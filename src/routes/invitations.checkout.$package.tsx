@@ -1,8 +1,9 @@
 import { createFileRoute, Link, notFound, useNavigate, useParams } from "@tanstack/react-router";
 import { useState } from "react";
-import { CreditCard, Smartphone, Lock, ArrowRight } from "lucide-react";
+import { CreditCard, Smartphone, Lock, ArrowRight, MessageCircle } from "lucide-react";
 import { InvitationsNav, InvitationsFooter } from "@/components/site/InvitationsChrome";
 import { findTier, saveDraft } from "@/lib/invitations";
+import { useInvitationPricing, whatsappUrl } from "@/lib/pricing";
 
 export const Route = createFileRoute("/invitations/checkout/$package")({
   loader: ({ params }) => {
