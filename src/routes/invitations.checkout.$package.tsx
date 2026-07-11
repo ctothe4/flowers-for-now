@@ -104,6 +104,26 @@ function CheckoutPage() {
               and our care high.
             </p>
 
+            {isZM ? (
+              <div className="mt-10 soft-card p-7 lg:p-9">
+                <p className="label-eyebrow">Pay via WhatsApp</p>
+                <p className="mt-4 text-foreground/80 leading-relaxed">
+                  We'll confirm your {tier.name} Invitation ({price}) and walk you through payment
+                  directly on WhatsApp.
+                </p>
+                <a
+                  href={zmHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary w-full mt-8"
+                >
+                  <MessageCircle className="w-4 h-4" /> Pay via WhatsApp
+                </a>
+                <p className="mt-4 text-xs text-muted-foreground flex items-center gap-1.5 justify-center">
+                  <Lock className="w-3 h-3" /> A member of our team responds personally.
+                </p>
+              </div>
+            ) : (
             <form onSubmit={onSubmit} className="mt-10 soft-card p-7 lg:p-9">
               <div className="grid sm:grid-cols-2 gap-4">
                 <Field label="Full name">
@@ -203,7 +223,7 @@ function CheckoutPage() {
               )}
 
               <button type="submit" disabled={processing} className="btn-primary w-full mt-8">
-                {processing ? "Processing…" : `Pay ${tier.price}`}{" "}
+                {processing ? "Processing…" : `Pay ${price}`}{" "}
                 {!processing && <ArrowRight className="w-4 h-4" />}
               </button>
 
@@ -211,6 +231,7 @@ function CheckoutPage() {
                 <Lock className="w-3 h-3" /> Secure checkout. Details never leave your session.
               </p>
             </form>
+            )}
           </div>
 
           <aside className="soft-card p-8 lg:sticky lg:top-24">
@@ -220,7 +241,7 @@ function CheckoutPage() {
             <div className="my-6 border-t border-border" />
             <div className="flex items-baseline justify-between">
               <span className="text-sm text-muted-foreground">Total</span>
-              <span className="font-display text-4xl">{tier.price}</span>
+              <span className="font-display text-4xl">{price}</span>
             </div>
             <ul className="mt-6 space-y-2 text-sm text-foreground/80">
               {tier.features.map((f) => (
