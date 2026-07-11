@@ -45,7 +45,7 @@ function HomePage() {
       <FinalCTA />
       <EnterpriseTeaser />
       <Footer />
-      <FoundingCircleModal />
+      
     </main>
   );
 }
