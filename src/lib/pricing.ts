@@ -127,21 +127,59 @@ export const INVITATION_PRICING: Record<string, InvitationRow> = {
 };
 
 // Enterprise pricing (existing 13 countries; unlisted → USD fallback).
+const e = (currency: string, starter: string, growth: string): EnterpriseRow =>
+  ({ currency, starter, growth });
+
+const USD_ENTERPRISE = e("USD", "$990", "$2,000");
+
 export const ENTERPRISE_PRICING: Record<string, EnterpriseRow> = {
-  US: { currency: "USD", symbol: "$",    starter: "990",       standard: "2,375",     signature: "4,450" },
-  CA: { currency: "CAD", symbol: "$",    starter: "990",       standard: "2,375",     signature: "4,450" },
-  AU: { currency: "AUD", symbol: "A$",   starter: "1,590",     standard: "3,725",     signature: "6,950" },
-  GB: { currency: "GBP", symbol: "£",    starter: "790",       standard: "1,875",     signature: "3,450" },
-  ZA: { currency: "ZAR", symbol: "R",    starter: "12,990",    standard: "30,900",    signature: "58,200" },
-  ZM: { currency: "ZMW", symbol: "K",    starter: "9,990",     standard: "23,725",    signature: "44,950" },
-  MX: { currency: "MXN", symbol: "MX$",  starter: "16,899",    standard: "40,499",    signature: "75,899" },
-  KE: { currency: "KES", symbol: "KSh ", starter: "79,499",    standard: "189,999",   signature: "356,999" },
-  PH: { currency: "PHP", symbol: "₱",    starter: "42,999",    standard: "102,999",   signature: "192,999" },
-  UG: { currency: "UGX", symbol: "USh ", starter: "1,949,000", standard: "4,659,000", signature: "8,729,000" },
-  IN: { currency: "INR", symbol: "₹",    starter: "59,099",    standard: "141,699",   signature: "265,499" },
-  RW: { currency: "RWF", symbol: "FRw ", starter: "729,000",   standard: "1,739,000", signature: "3,259,000" },
-  DZ: { currency: "DZD", symbol: "DA ",  starter: "102,999",   standard: "246,999",   signature: "461,999" },
+  US: USD_ENTERPRISE,
+  GB: e("GBP", "£790", "£1,595"),
+  AU: e("AUD", "A$1,590", "A$3,210"),
+  ZA: e("ZAR", "R12,990", "R26,240"),
+  ZM: e("ZMW", "K9,990", "K20,180"),
+  NG: e("NGN", "₦525,000", "₦1,060,600"),
+  AE: e("AED", "AED 3,840", "AED 7,760"),
+  QA: e("QAR", "QAR 3,840", "QAR 7,760"),
+  KE: e("KES", "KSh79,499", "KSh160,600"),
+  UG: e("UGX", "USh1,949,000", "USh3,937,400"),
+  RW: e("RWF", "FRw729,000", "FRw1,472,700"),
+  DZ: e("DZD", "DA102,999", "DA208,100"),
+  CA: e("CAD", "C$990", "C$2,000"),
+  MX: e("MXN", "MX$16,780", "MX$33,890"),
+  IN: e("INR", "₹53,640", "₹108,360"),
+  PH: e("PHP", "₱40,190", "₱81,200"),
+  IE: e("EUR", "€910", "€1,840"),
+  DE: e("EUR", "€910", "€1,840"),
+  FR: e("EUR", "€910", "€1,840"),
+  NL: e("EUR", "€910", "€1,840"),
+  BE: e("EUR", "€910", "€1,840"),
+  FI: e("EUR", "€910", "€1,840"),
+  EE: e("EUR", "€910", "€1,840"),
+  CH: e("CHF", "CHF790", "CHF1,600"),
+  SE: e("SEK", "kr9,555", "kr19,300"),
+  NO: e("NOK", "kr10,300", "kr20,800"),
+  DK: e("DKK", "kr6,365", "kr12,860"),
+  SA: e("SAR", "SAR3,710", "SAR7,500"),
+  KW: e("KWD", "KWD304", "KWD614"),
+  BH: e("BHD", "BHD372", "BHD752"),
+  OM: e("OMR", "OMR381", "OMR770"),
+  SG: e("SGD", "S$1,275", "S$2,580"),
+  HK: e("HKD", "HK$7,770", "HK$15,700"),
+  NZ: e("NZD", "NZ$1,605", "NZ$3,240"),
+  MY: e("MYR", "RM3,490", "RM7,050"),
+  ID: e("IDR", "Rp8,875,400", "Rp17,930,000"),
+  TH: e("THB", "฿21,380", "฿43,200"),
+  VN: e("VND", "₫11,315,700", "₫22,860,000"),
+  GH: e("GHS", "GH₵7,670", "GH₵15,500"),
+  TZ: e("TZS", "TSh1,081,100", "TSh2,184,000"),
+  MA: e("MAD", "DH5,880", "DH11,880"),
+  EG: e("EGP", "E£24,260", "E£49,000"),
+  BW: e("BWP", "P8,750", "P17,680"),
+  NA: e("NAD", "N$12,990", "N$26,240"),
+  JO: e("JOD", "JD407", "JD822"),
 };
+
 
 export const DEFAULT_COUNTRY: CountryCode = "US";
 export const WHATSAPP_NUMBER = "260963510729";
