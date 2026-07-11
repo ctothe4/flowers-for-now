@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Lock, Heart } from "lucide-react";
+import { useConsumerPricing, whatsappUrl } from "@/lib/pricing";
 
 export const Route = createFileRoute("/start-video-flower")({
   component: StartVideoFlowerPage,
