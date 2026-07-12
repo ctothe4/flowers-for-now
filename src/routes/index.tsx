@@ -8,7 +8,7 @@ import { StartBouquetDialog } from "@/components/site/StartBouquetDialog";
 import { InstitutionalDialog } from "@/components/site/InstitutionalDialog";
 import { BouquetMockup } from "@/components/site/BouquetMockup";
 
-import { useConsumerPricing, whatsappUrl } from "@/lib/pricing";
+import { useConsumerPricing, useEnterprisePricing, whatsappUrl } from "@/lib/pricing";
 import gatheringImg from "@/assets/gathering.png";
 import monogram from "@/assets/ryf-monogram.png";
 
@@ -492,6 +492,7 @@ function Packages() {
 
 /* ---------------- TEAMS ---------------- */
 function Teams() {
+  const enterprise = useEnterprisePricing();
   const useCases = [
     "Employee retirements", "Founder appreciation", "Pastor or church leader appreciation",
     "Teacher appreciation", "Coach appreciation", "Team farewells",
@@ -530,7 +531,7 @@ function Teams() {
             <InstitutionalDialog
               trigger={<button className="btn-primary">Plan an Institutional Bouquet</button>}
             />
-            <p className="text-sm text-muted-foreground">Institutional bouquets start at $499.</p>
+            <p className="text-sm text-muted-foreground">Institutional bouquets start at {enterprise.starter}.</p>
           </div>
         </div>
       </div>

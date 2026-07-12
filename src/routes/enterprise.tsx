@@ -168,7 +168,7 @@ const OFFERINGS = [
   { t: "Custom Branded Experiences", d: "Tailored to your organization's voice and visual identity." },
 ];
 
-const ONETIME_PROGRAMS = [
+const PROGRAMS = [
   {
     t: "Starter Recognition Program",
     tier: "starter" as const,
@@ -179,7 +179,7 @@ const ONETIME_PROGRAMS = [
   },
   {
     t: "Standard Recognition Program",
-    tier: "gated" as const,
+    tier: "standard" as const,
     count: "25 Recipients",
     d: "Designed for organizations seeking meaningful recognition across teams, clients, stakeholders, or community members.",
     perfect: ["Team recognition initiatives", "Client appreciation programs", "Volunteer recognition", "Community engagement programs", "Internal culture initiatives"],
@@ -187,7 +187,7 @@ const ONETIME_PROGRAMS = [
   },
   {
     t: "Signature Recognition Program",
-    tier: "gated" as const,
+    tier: "signature" as const,
     count: "50 Recipients",
     d: "A larger-scale appreciation initiative designed to strengthen culture, celebrate contribution, and recognize impact at scale.",
     perfect: ["Annual recognition programs", "Employee appreciation campaigns", "Organizational milestones", "Company anniversaries", "National recognition initiatives"],
@@ -203,39 +203,9 @@ const ONETIME_PROGRAMS = [
   },
 ];
 
-const SUBSCRIPTION_PROGRAMS = [
-  {
-    t: "Growth Subscription",
-    tier: "growth" as const,
-    count: "Ongoing quarterly recognition",
-    d: "A rhythm of appreciation built into your year — quarterly credits your team can direct toward the people who matter most.",
-    perfect: ["People-first organizations", "Quarterly recognition cycles", "Distributed teams", "Culture-forward companies", "Long-term appreciation programs"],
-    cta: "Request Proposal",
-    policy: "Unused credits roll over one quarter. Additional credits billed at the standard per-recipient rate.",
-  },
-  {
-    t: "Scale Subscription",
-    tier: "gated" as const,
-    count: "Ongoing quarterly recognition",
-    d: "A larger recognition footprint for organizations weaving appreciation into culture across teams, functions, and regions.",
-    perfect: ["Growing companies", "Multi-team programs", "Regional recognition initiatives", "Client appreciation at scale"],
-    cta: "Request Proposal",
-  },
-  {
-    t: "Enterprise Subscription",
-    tier: "enterprise" as const,
-    count: "Ongoing quarterly recognition",
-    d: "Bespoke, ongoing recognition designed around the culture, calendar, and communities of your organization.",
-    perfect: ["Enterprise organizations", "Global teams", "Institutions and associations", "Long-horizon culture programs"],
-    cta: "Schedule Consultation",
-  },
-];
-
 function FoundingPartner() {
   const pricing = useEnterprisePricing();
   const isZM = pricing.country === "ZM";
-  const [mode, setMode] = useState<"onetime" | "subscription">("subscription");
-  const programs = mode === "onetime" ? ONETIME_PROGRAMS : SUBSCRIPTION_PROGRAMS;
 
   return (
     <section className="py-24 lg:py-32" style={{ background: "var(--ivory)" }}>
@@ -259,56 +229,18 @@ function FoundingPartner() {
           </div>
         </div>
 
-        <div className="mt-12 flex justify-center">
-          <div
-            role="tablist"
-            aria-label="Program model"
-            className="inline-flex items-center gap-1 p-1 rounded-full"
-            style={{
-              background: "color-mix(in oklab, var(--champagne) 30%, var(--ivory))",
-              border: "1px solid color-mix(in oklab, var(--ink) 8%, transparent)",
-            }}
-          >
-            {(["onetime", "subscription"] as const).map((m) => {
-              const active = mode === m;
-              const label = m === "onetime" ? "One-Time Package" : "Subscription";
-              return (
-                <button
-                  key={m}
-                  role="tab"
-                  aria-selected={active}
-                  onClick={() => setMode(m)}
-                  className="px-6 py-2.5 text-sm rounded-full transition"
-                  style={{
-                    background: active ? "var(--ink)" : "transparent",
-                    color: active ? "var(--ivory)" : "var(--ink)",
-                    letterSpacing: "0.01em",
-                  }}
-                >
-                  {label}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
         <div className="mt-12 grid md:grid-cols-2 gap-6">
-          {programs.map((p) => {
+          {PROGRAMS.map((p) => {
             const priceLabel =
               p.tier === "starter"
                 ? pricing.starter
-                : p.tier === "growth"
-                  ? pricing.growth
-                  : "Custom Pricing";
-            const subLabel =
-              p.tier === "starter"
-                ? null
-                : p.tier === "growth"
-                  ? "per quarter"
-                  : "Calculated on request for this market";
+                : p.tier === "standard"
+                  ? pricing.standard
+                  : p.tier === "signature"
+                    ? pricing.signature
+                    : "Custom Quote";
             const isEnterprise = p.tier === "enterprise";
             const ctaLabel = isEnterprise ? "Schedule Consultation" : "Request Proposal";
-            const policy = "policy" in p ? (p as { policy?: string }).policy : undefined;
 
             return (
               <div key={p.t} className="soft-card p-10 flex flex-col">
@@ -320,12 +252,6 @@ function FoundingPartner() {
                 >
                   {priceLabel}
                 </p>
-                {subLabel && (
-                  <p className="mt-1 text-sm text-muted-foreground italic">{subLabel}</p>
-                )}
-                {policy && (
-                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{policy}</p>
-                )}
                 <div className="mt-5 editorial-rule" />
                 <p className="mt-5 text-foreground/80 leading-relaxed">{p.d}</p>
                 <p className="label-eyebrow mt-8">Perfect for</p>
