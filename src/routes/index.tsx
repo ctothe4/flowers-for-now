@@ -531,7 +531,7 @@ function Teams() {
             <InstitutionalDialog
               trigger={<button className="btn-primary">Plan an Institutional Bouquet</button>}
             />
-            <p className="text-sm text-muted-foreground">Institutional bouquets start at $499.</p>
+            <p className="text-sm text-muted-foreground">Institutional bouquets start at {enterprise.starter}.</p>
           </div>
         </div>
       </div>
