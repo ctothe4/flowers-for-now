@@ -492,6 +492,7 @@ function Packages() {
 
 /* ---------------- TEAMS ---------------- */
 function Teams() {
+  const enterprise = useEnterprisePricing();
   const useCases = [
     "Employee retirements", "Founder appreciation", "Pastor or church leader appreciation",
     "Teacher appreciation", "Coach appreciation", "Team farewells",
